@@ -1,0 +1,46 @@
+{
+  "name": "mixi2",
+  "version": "0.0.1",
+  "packageManager": "pnpm@10.12.1",
+  "description": "mixi2 client for Node.js and browsers",
+  "author": "Karasu <karasu.shing@gmail.com> (https://github.com/KarasuShin)",
+  "license": "MIT",
+  "keywords": [
+    "mixi",
+    "mixi.social"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.mts",
+      "import": {
+        "types": "./index.d.mts",
+        "default": "./index.mjs"
+      },
+      "default": "./index.mjs"
+    }
+  },
+  "module": "./index.mjs",
+  "types": "./index.d.mts",
+  "scripts": {
+    "copy": "shx cp package.json dist && json -I -f dist/package.json -e \"this.devDependencies=undefined; this.scripts=undefined; this.publishConfig=undefined;\"",
+    "build": "tsdown && npm run copy",
+    "lint": "eslint",
+    "release": "bumpp && pnpm publish"
+  },
+  "dependencies": {
+    "protobufjs": "^7.5.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.13.3",
+    "@types/node": "^22.15.30",
+    "bumpp": "^10.1.1",
+    "eslint": "^9.28.0",
+    "json": "^11.0.0",
+    "shx": "^0.4.0",
+    "tsdown": "^0.12.7",
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "directory": "dist"
+  }
+}
