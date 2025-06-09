@@ -1,4 +1,5 @@
 # mixi2
+[![npm package](https://img.shields.io/npm/v/mixi2.svg)](https://www.npmjs.com/package/mixi2)
 
 [mixi2](https://mixi.social/) client for Node.js and browsers
 
