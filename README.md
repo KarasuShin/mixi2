@@ -38,7 +38,7 @@ const client = new MixiClient(
   'your-cookie-string',
   'your-auth-key',
   {
-    baseUrl: 'https://your-proxy-server.com/api'
+    baseUrl: 'https://your-proxy-server.com'
   }
 )
 
@@ -52,7 +52,7 @@ server {
     listen 80;
     server_name your-proxy-server.com;
 
-    location /api {
+    location / {
         proxy_pass https://mixi.social/api/connect/com.mixi.mercury.api.MercuryService/;
 
         proxy_ssl_verify off;
