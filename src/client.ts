@@ -1,4 +1,4 @@
-import type { GetPersonaByNameRequest, GetSubscribingFeedsRequest } from '~/types'
+import type { AcceptChatRoomRequest, AcceptChatRoomResponse, AddMembersToChatRoomRequest, AddMembersToChatRoomResponse, AddStampToPostRequest, AddStampToPostResponse, ApplyForVerificationRequest, ApplyForVerificationResponse, GetCommunityRequest, GetCommunityResponse, GetPersonaByNameRequest, GetPersonaByNameResponse, GetPostRequest, GetPostResponse, GetSubscribingFeedsRequest, GetSubscribingFeedsResponse, GetThreadPostsRequest } from '~/types'
 import { decode } from '~/lib/decode'
 import { encode } from '~/lib/encode'
 import { Http } from '~/lib/http'
@@ -26,7 +26,7 @@ export class MixiClient {
     })
   }
 
-  async request(rpcName: string, data?: any) {
+  async request<T = any>(rpcName: string, data?: any) {
     let input: Uint8Array | undefined
 
     if (data) {
@@ -35,16 +35,24 @@ export class MixiClient {
 
     const response = await this.http.request(`/${rpcName}`, input).then(res => res.bytes())
 
-    return await decode(response, `${rpcName}Response`)
+    return await decode<T>(response, `${rpcName}Response`)
   }
 
-  acceptChatRoom() {}
+  acceptChatRoom(payload: AcceptChatRoomRequest) {
+    return this.request<AcceptChatRoomResponse>('AcceptChatRoom', payload)
+  }
 
-  addMembersToChatRoom() {}
+  addMembersToChatRoom(payload: AddMembersToChatRoomRequest) {
+    return this.request<AddMembersToChatRoomResponse>('AddMembersToChatRoom', payload)
+  }
 
-  addStampToPost() {}
+  addStampToPost(payload: AddStampToPostRequest) {
+    return this.request<AddStampToPostResponse>('AddStampToPost', payload)
+  }
 
-  applyForVerification() {}
+  applyForVerification(payload: ApplyForVerificationRequest) {
+    return this.request<ApplyForVerificationResponse>('ApplyForVerification', payload)
+  }
 
   approveFollowingRequest() {}
 
@@ -138,7 +146,9 @@ export class MixiClient {
 
   getCommunitiesPostNotifications() {}
 
-  getCommunity() {}
+  getCommunity(payload: GetCommunityRequest) {
+    return this.request<GetCommunityResponse>('GetCommunity', payload)
+  }
 
   getCommunityBookmarks() {}
 
@@ -215,7 +225,7 @@ export class MixiClient {
   getPendingVerificationSocialMedia() {}
 
   getPersonaByName(payload: GetPersonaByNameRequest) {
-    return this.request('GetPersonaByName', payload)
+    return this.request<GetPersonaByNameResponse>('GetPersonaByName', payload)
   }
 
   getPersonalCommunityPosts() {}
@@ -228,7 +238,9 @@ export class MixiClient {
 
   getPersonasPostNotifications() {}
 
-  getPost() {}
+  getPost(payload: GetPostRequest) {
+    return this.request<GetPostResponse>('GetPost', payload)
+  }
 
   getPostStampReactions() {}
 
@@ -271,10 +283,12 @@ export class MixiClient {
   getStorageRateLimit() {}
 
   getSubscribingFeeds(payload?: GetSubscribingFeedsRequest) {
-    return this.request('GetSubscribingFeeds', payload)
+    return this.request<GetSubscribingFeedsResponse>('GetSubscribingFeeds', payload)
   }
 
-  getThreadPosts() {}
+  getThreadPosts(payload: GetThreadPostsRequest) {
+    return this.request<GetThreadPostsRequest>('GetThreadPosts', payload)
+  }
 
   getTimelineSetting() {}
 

@@ -12,6 +12,22 @@ enum Category {
   CATEGORY_COMMUNITY_STAMP = 5;
 }
 
+enum ChatRoomMessageType {
+  CHAT_ROOM_MESSAGE_TYPE_MESSAGE = 0;
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_INVITE = 1;
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_JOIN = 2;
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_LEAVE = 3;
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_CHANGE_TITLE = 4;
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_CHANGE_ICON = 5;
+}
+
+enum ChatRoomStatus {
+  CHAT_ROOM_STATUS_UNKNOWN = 0;
+  CHAT_ROOM_STATUS_ACCEPTED = 1;
+  CHAT_ROOM_STATUS_REQUESTED = 2;
+  CHAT_ROOM_STATUS_REQUESTING = 3;
+}
+
 enum CommunityAccessLevel {
   COMMUNITY_ACCESS_LEVEL_PUBLIC = 0;
   COMMUNITY_ACCESS_LEVEL_APPROVAL_REQUIRED = 1;
@@ -112,6 +128,14 @@ enum PostVisibility {
   POST_VISIBILITY_SEALED = 2;
 }
 
+enum ProfileSocialMediaType {
+  PROFILE_SOCIAL_MEDIA_TYPE_UNSPECIFIED = 0;
+  PROFILE_SOCIAL_MEDIA_TYPE_TWITTER = 1;
+  PROFILE_SOCIAL_MEDIA_TYPE_INSTAGRAM = 2;
+  PROFILE_SOCIAL_MEDIA_TYPE_TIKTOK = 3;
+  PROFILE_SOCIAL_MEDIA_TYPE_YOUTUBE = 4;
+}
+
 enum Status {
   STATUS_UNKNOWN = 0;
   STATUS_WAIT_FOR_UPLOADING = 1;
@@ -142,6 +166,35 @@ message Avatar {
   uint32 profile_image_height = 7;
   uint32 profile_image_width = 8;
   string blurhash = 9;
+}
+
+message ChatRoom {
+  string room_id = 1;
+  bool is_group = 2;
+  optional string title = 3;
+  repeated ChatRoomMember members = 4;
+  Timestamp created_at = 5;
+  optional ChatRoomMessage message = 6;
+  ChatRoomStatus status = 7;
+  bool is_mute = 8;
+  bool is_invisible = 9;
+}
+
+message ChatRoomMember {
+  string persona_id = 1;
+  optional string read_message_id = 2;
+}
+
+message ChatRoomMessage {
+  string room_id = 1;
+  string message_id = 2;
+  string persona_id = 3;
+  ChatRoomMessageType message_type = 4;
+  optional string message_target_id = 5;
+  optional string text = 6;
+  Timestamp created_at = 8;
+  repeated Media media = 9;
+  optional Post post = 10;
 }
 
 message Community {
@@ -236,19 +289,6 @@ message Feed {
   string time_series_id = 2;
   Post post = 3;
   CommunityAggregationPost community_aggregation_post = 4;
-}
-
-message GetSubscribingFeedsRequest {
-  optional string until_cursor = 1;
-  optional uint32 limit = 2;
-  optional string since_cursor = 3;
-  optional string end_cursor = 4;
-  optional FeedSourceType feed_source_type = 5;
-}
-
-message GetSubscribingFeedsResponse {
-  repeated Feed feeds = 1;
-  optional string next_cursor = 2;
 }
 
 message LinkCard {
@@ -383,6 +423,49 @@ message Timestamp {
   int32 nanos = 2;
 }
 
+// ============================================================
+
+message AcceptChatRoomRequest {
+  string room_id = 1;
+}
+
+message AcceptChatRoomResponse {
+  ChatRoom room = 1;
+}
+
+message AddMembersToChatRoomRequest {
+  string room_id = 1;
+  repeated string member_ids = 2;
+}
+
+message AddMembersToChatRoomResponse {
+  ChatRoom room = 1;
+}
+
+message AddStampToPostRequest {
+  string post_id = 1;
+  string stamp_id = 2;
+}
+
+message AddStampToPostResponse {
+  Post post = 1;
+}
+
+message ApplyForVerificationRequest {
+  repeated ProfileSocialMediaType social_media_types = 1;
+}
+
+message ApplyForVerificationResponse {
+}
+
+message GetCommunityRequest {
+  string communityId = 1;
+}
+
+message GetCommunityResponse {
+  Community community = 1;
+}
+
 message GetPersonaByNameRequest {
   string name = 1;
 }
@@ -391,8 +474,50 @@ message GetPersonaByNameResponse {
   Persona persona = 1;
 }
 
+message GetPostRequest {
+  string post_id = 1;
+}
+
+message GetPostResponse {
+  Post post = 1;
+}
+
+message GetSubscribingFeedsRequest {
+  optional string until_cursor = 1;
+  optional uint32 limit = 2;
+  optional string since_cursor = 3;
+  optional string end_cursor = 4;
+  optional FeedSourceType feed_source_type = 5;
+}
+
+message GetSubscribingFeedsResponse {
+  repeated Feed feeds = 1;
+  optional string next_cursor = 2;
+}
+
+message GetThreadPostsRequest {
+  string thread_post_id = 1;
+  optional string until_cursor_id = 2;
+  optional string since_cursor_id = 3;
+  optional uint32 limit = 4;
+  optional string end_cursor_id = 5;
+}
+
+message GetTimelineResponse {
+  repeated Post posts = 1;
+}
+
+
+
 service MercuryService {
+  rpc AcceptChatRoom(AcceptChatRoomRequest) returns (AcceptChatRoomResponse);
+  rpc AddMembersToChatRoom(AddMembersToChatRoomRequest) returns (AddMembersToChatRoomResponse);
+  rpc AddStampToPost(AddStampToPostRequest) returns (AddStampToPostResponse);
+  rpc ApplyForVerification(ApplyForVerificationRequest) returns (ApplyForVerificationResponse);
   rpc GetSubscribingFeeds(GetSubscribingFeedsRequest) returns (GetSubscribingFeedsResponse);
   rpc GetPersonaByName(GetPersonaByNameRequest) returns (GetPersonaByNameResponse);
+  rpc GetCommunity(GetCommunityRequest) returns (GetCommunityResponse);
+  rpc GetThreadPosts(GetThreadPostsRequest) returns (GetTimelineResponse);
+  rpc GetPost(GetPostRequest) returns (GetPostResponse);
 }
 `

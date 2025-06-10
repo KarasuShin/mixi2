@@ -1,3 +1,7 @@
+// syntax = "proto3";
+
+// package mixi;
+
 export enum Category {
   CATEGORY_UNKNOWN = 0,
   CATEGORY_AVATAR = 1,
@@ -5,6 +9,22 @@ export enum Category {
   CATEGORY_POST_VIDEO = 3,
   CATEGORY_COMMUNITY_COVER_IMAGE = 4,
   CATEGORY_COMMUNITY_STAMP = 5,
+}
+
+export enum ChatRoomMessageType {
+  CHAT_ROOM_MESSAGE_TYPE_MESSAGE = 0,
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_INVITE = 1,
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_JOIN = 2,
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_LEAVE = 3,
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_CHANGE_TITLE = 4,
+  CHAT_ROOM_MESSAGE_TYPE_SYSTEM_MESSAGE_CHANGE_ICON = 5,
+}
+
+export enum ChatRoomStatus {
+  CHAT_ROOM_STATUS_UNKNOWN = 0,
+  CHAT_ROOM_STATUS_ACCEPTED = 1,
+  CHAT_ROOM_STATUS_REQUESTED = 2,
+  CHAT_ROOM_STATUS_REQUESTING = 3,
 }
 
 export enum CommunityAccessLevel {
@@ -107,6 +127,14 @@ export enum PostVisibility {
   POST_VISIBILITY_SEALED = 2,
 }
 
+export enum ProfileSocialMediaType {
+  PROFILE_SOCIAL_MEDIA_TYPE_UNSPECIFIED = 0,
+  PROFILE_SOCIAL_MEDIA_TYPE_TWITTER = 1,
+  PROFILE_SOCIAL_MEDIA_TYPE_INSTAGRAM = 2,
+  PROFILE_SOCIAL_MEDIA_TYPE_TIKTOK = 3,
+  PROFILE_SOCIAL_MEDIA_TYPE_YOUTUBE = 4,
+}
+
 export enum Status {
   STATUS_UNKNOWN = 0,
   STATUS_WAIT_FOR_UPLOADING = 1,
@@ -137,6 +165,35 @@ export interface Avatar {
   profileImageHeight: number
   profileImageWidth: number
   blurhash: string
+}
+
+export interface ChatRoom {
+  roomId: string
+  isGroup: boolean
+  title?: string
+  members: ChatRoomMember[]
+  createdAt: Timestamp
+  message?: ChatRoomMessage
+  status: ChatRoomStatus
+  isMute: boolean
+  isInvisible: boolean
+}
+
+export interface ChatRoomMember {
+  personaId: string
+  readMessageId?: string
+}
+
+export interface ChatRoomMessage {
+  roomId: number
+  messageId: string
+  personaId: string
+  messageType: ChatRoomMessageType
+  messageTargetId?: string
+  text?: string
+  createdAt: Timestamp
+  media: Media[]
+  post: Post
 }
 
 export interface Community {
@@ -365,7 +422,65 @@ export interface Timestamp {
   nanos: number
 }
 
-// GetSubscribingFeeds
+// ============================================================
+
+export interface AcceptChatRoomRequest {
+  roomId: string
+}
+
+export interface AcceptChatRoomResponse {
+  room: ChatRoom
+}
+
+export interface AddMembersToChatRoomRequest {
+  roomId: string
+  memberIds: string[]
+}
+
+export interface AddMembersToChatRoomResponse {
+  room: ChatRoom
+}
+
+export interface AddStampToPostRequest {
+  postId: string
+  stampId: string
+}
+
+export interface AddStampToPostResponse {
+  post: Post
+}
+
+export interface ApplyForVerificationRequest {
+  socialMediaTypes: ProfileSocialMediaType[]
+}
+
+export interface ApplyForVerificationResponse {
+}
+
+export interface GetCommunityRequest {
+  communityId: string
+}
+
+export interface GetCommunityResponse {
+  community: Community
+}
+
+export interface GetPersonaByNameRequest {
+  name: string
+}
+
+export interface GetPersonaByNameResponse {
+  persona?: Persona
+}
+
+export interface GetPostRequest {
+  postId: string
+}
+
+export interface GetPostResponse {
+  post: Post
+}
+
 export interface GetSubscribingFeedsRequest {
   untilCursor?: string
   limit?: number
@@ -379,10 +494,14 @@ export interface GetSubscribingFeedsResponse {
   nextCursor?: string
 }
 
-// GetPersonaByName
-export interface GetPersonaByNameRequest {
-  name: string
+export interface GetThreadPostsRequest {
+  threadPostId: string
+  untilCursorId?: string
+  sinceCursorId?: string
+  limit?: number
+  endCursorId?: string
 }
-export interface GetPersonaByNameResponse {
-  persona?: Persona
+
+export interface GetThreadPostsRequest {
+  posts: Post[]
 }
