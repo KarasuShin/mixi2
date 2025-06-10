@@ -21,7 +21,7 @@ const client = new MixiClient(
   'your-auth-key'
 )
 
-const persona = await client.getSubscribingFeeds({ limit: 50 })
+const feeds = await client.getSubscribingFeeds({ limit: 50 })
 ```
 
 ### Browser
@@ -42,7 +42,7 @@ const client = new MixiClient(
   }
 )
 
-const persona = await client.getSubscribingFeeds({ limit: 50 })
+const feeds = await client.getSubscribingFeeds({ limit: 50 })
 ```
 
 #### Nginx Proxy Configuration Example
