@@ -1,6 +1,6 @@
 {
   "name": "mixi2",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "packageManager": "pnpm@10.12.1",
   "description": "mixi2 client for Node.js and browsers",
   "author": "Karasu <karasu.shing@gmail.com> (https://github.com/KarasuShin)",
