@@ -381,6 +381,7 @@ export class MixiClient {
     authKey: string,
     options?: {
       baseUrl?: string
+      httpAdapter?: (input: string, init?: RequestInit) => Promise<Response>
     },
   ) {
     if (!cookie || !authKey) {
@@ -391,6 +392,7 @@ export class MixiClient {
     this.authKey = authKey
     this.http = new Http(cookie, authKey, {
       baseUrl: options?.baseUrl,
+      httpAdapter: options?.httpAdapter,
     })
   }
 

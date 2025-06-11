@@ -6,17 +6,20 @@ export class Http {
   private cookie: string
   private authKey: string
   private baseUrl: string
+  private httpAdapter?: (path: string, request?: RequestInit) => Promise<Response>
 
   constructor(
     cookie: string,
     authKey: string,
     options?: {
       baseUrl?: string
+      httpAdapter?: (path: string, request?: RequestInit) => Promise<Response>
     },
   ) {
     this.cookie = cookie
     this.authKey = authKey
     this.baseUrl = options?.baseUrl || BASE_URL
+    this.httpAdapter = options?.httpAdapter
   }
 
   async request(path: string, body?: Uint8Array) {
@@ -41,7 +44,11 @@ export class Http {
       body,
     }
 
-    const response = await fetch(`${this.baseUrl}${path}`, requestOptions)
+    const response = await (
+      this.httpAdapter
+        ? this.httpAdapter(`${this.baseUrl}${path}`, requestOptions)
+        : fetch(`${this.baseUrl}${path}`, requestOptions)
+    )
 
     if (response.status >= 400) {
       throw new Error(`${response.status}: ${response.statusText}`)
