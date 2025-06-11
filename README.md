@@ -65,6 +65,30 @@ server {
 }
 ```
 
+## Custom HTTP Adapter
+
+You can provide a custom HTTP adapter to override the default fetch behavior. This is useful when you need to customize request handling, add middleware, or integrate with different HTTP clients.
+
+```typescript
+import { MixiClient } from 'mixi2'
+
+// Example: Using a custom adapter with additional logging
+const httpAdapter = async (url: string, init?: RequestInit) => {
+  console.log(`Making request to: ${url}`)
+  const response = await fetch(url, init)
+  console.log(`Response status: ${response.status}`)
+  return response
+}
+
+const client = new MixiClient(
+  'your-cookie-string',
+  'your-auth-key',
+  {
+    httpAdapter
+  }
+)
+```
+
 ## License
 
 MIT
