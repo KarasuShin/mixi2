@@ -1,4 +1,4 @@
-export const proto = `
+export const proto: string = `
 syntax = "proto3";
 
 package mixi;
