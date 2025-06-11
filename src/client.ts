@@ -396,775 +396,1730 @@ export class MixiClient {
     })
   }
 
-  async request<T = any>(rpcName: string, data?: any) {
+  async request<T = any>(options: {
+    rpcName: string
+    inputMessageName: string
+    outputMessageName: string
+    payload?: any
+  }) {
     let input: Uint8Array | undefined
 
-    if (data) {
-      input = await encode(data, `${rpcName}Request`)
+    if (options.payload) {
+      input = await encode(options.payload, options.inputMessageName)
     }
 
-    const response = await this.http.request(`/${rpcName}`, input).then(res => res.bytes())
+    const response = await this.http.request(`/${options.rpcName}`, input).then(res => res.bytes())
 
-    return await decode<T>(response, `${rpcName}Response`)
+    return await decode<T>(response, options.outputMessageName)
   }
 
   acceptChatRoom(payload: AcceptChatRoomRequest) {
-    return this.request<AcceptChatRoomResponse>('AcceptChatRoom', payload)
+    return this.request<AcceptChatRoomResponse>({
+      rpcName: 'AcceptChatRoom',
+      inputMessageName: 'AcceptChatRoomRequest',
+      outputMessageName: 'AcceptChatRoomResponse',
+      payload,
+    })
   }
 
   addMembersToChatRoom(payload: AddMembersToChatRoomRequest) {
-    return this.request<AddMembersToChatRoomResponse>('AddMembersToChatRoom', payload)
+    return this.request<AddMembersToChatRoomResponse>({
+      rpcName: 'AddMembersToChatRoom',
+      inputMessageName: 'AddMembersToChatRoomRequest',
+      outputMessageName: 'AddMembersToChatRoomResponse',
+      payload,
+    })
   }
 
   addStampToPost(payload: AddStampToPostRequest) {
-    return this.request<AddStampToPostResponse>('AddStampToPost', payload)
+    return this.request<AddStampToPostResponse>({
+      rpcName: 'AddStampToPost',
+      inputMessageName: 'AddStampToPostRequest',
+      outputMessageName: 'AddStampToPostResponse',
+      payload,
+    })
   }
 
   applyForVerification(payload: ApplyForVerificationRequest) {
-    return this.request<ApplyForVerificationResponse>('ApplyForVerification', payload)
+    return this.request<ApplyForVerificationResponse>({
+      rpcName: 'ApplyForVerification',
+      inputMessageName: 'ApplyForVerificationRequest',
+      outputMessageName: 'ApplyForVerificationResponse',
+      payload,
+    })
   }
 
   approveFollowingRequest(payload: ApproveFollowingRequestRequest) {
-    return this.request<ApproveFollowingRequestResponse>('ApproveFollowingRequest', payload)
+    return this.request<ApproveFollowingRequestResponse>({
+      rpcName: 'ApproveFollowingRequest',
+      inputMessageName: 'ApproveFollowingRequestRequest',
+      outputMessageName: 'ApproveFollowingRequestResponse',
+      payload,
+    })
   }
 
   approveJoinCommunity(payload: ApproveJoinCommunityRequest) {
-    return this.request<ApproveJoinCommunityResponse>('ApproveJoinCommunity', payload)
+    return this.request<ApproveJoinCommunityResponse>({
+      rpcName: 'ApproveJoinCommunity',
+      inputMessageName: 'ApproveJoinCommunityRequest',
+      outputMessageName: 'ApproveJoinCommunityResponse',
+      payload,
+    })
   }
 
   archiveCommunity(payload: ArchiveCommunityRequest) {
-    return this.request<ArchiveCommunityResponse>('ArchiveCommunity', payload)
+    return this.request<ArchiveCommunityResponse>({
+      rpcName: 'ArchiveCommunity',
+      inputMessageName: 'ArchiveCommunityRequest',
+      outputMessageName: 'ArchiveCommunityResponse',
+      payload,
+    })
   }
 
   bookmarkCommunity(payload: BookmarkCommunityRequest) {
-    return this.request<BookmarkCommunityResponse>('BookmarkCommunity', payload)
+    return this.request<BookmarkCommunityResponse>({
+      rpcName: 'BookmarkCommunity',
+      inputMessageName: 'BookmarkCommunityRequest',
+      outputMessageName: 'BookmarkCommunityResponse',
+      payload,
+    })
   }
 
   cancelFollowingRequest(payload: CancelFollowingRequestRequest) {
-    return this.request<CancelFollowingRequestResponse>('CancelFollowingRequest', payload)
+    return this.request<CancelFollowingRequestResponse>({
+      rpcName: 'CancelFollowingRequest',
+      inputMessageName: 'CancelFollowingRequestRequest',
+      outputMessageName: 'CancelFollowingRequestResponse',
+      payload,
+    })
   }
 
   cancelJoinCommunityRequest(payload: CancelJoinCommunityRequestRequest) {
-    return this.request<CancelJoinCommunityRequestResponse>('CancelJoinCommunityRequest', payload)
+    return this.request<CancelJoinCommunityRequestResponse>({
+      rpcName: 'CancelJoinCommunityRequest',
+      inputMessageName: 'CancelJoinCommunityRequestRequest',
+      outputMessageName: 'CancelJoinCommunityRequestResponse',
+      payload,
+    })
   }
 
   changeCommunityAdmins(payload: ChangeCommunityAdminsRequest) {
-    return this.request<ChangeCommunityAdminsResponse>('ChangeCommunityAdmins', payload)
+    return this.request<ChangeCommunityAdminsResponse>({
+      rpcName: 'ChangeCommunityAdmins',
+      inputMessageName: 'ChangeCommunityAdminsRequest',
+      outputMessageName: 'ChangeCommunityAdminsResponse',
+      payload,
+    })
   }
 
   changeCommunityPostSubscriptionType(payload: ChangeCommunityPostSubscriptionTypeRequest) {
-    return this.request<ChangeCommunityPostSubscriptionTypeResponse>('ChangeCommunityPostSubscriptionType', payload)
+    return this.request<ChangeCommunityPostSubscriptionTypeResponse>({
+      rpcName: 'ChangeCommunityPostSubscriptionType',
+      inputMessageName: 'ChangeCommunityPostSubscriptionTypeRequest',
+      outputMessageName: 'ChangeCommunityPostSubscriptionTypeResponse',
+      payload,
+    })
   }
 
   changeMyPersonaVisibility(payload: ChangeMyPersonaVisibilityRequest) {
-    return this.request<ChangeMyPersonaVisibilityResponse>('ChangeMyPersonaVisibility', payload)
+    return this.request<ChangeMyPersonaVisibilityResponse>({
+      rpcName: 'ChangeMyPersonaVisibility',
+      inputMessageName: 'ChangeMyPersonaVisibilityRequest',
+      outputMessageName: 'ChangeMyPersonaVisibilityResponse',
+      payload,
+    })
   }
 
   checkPendingPost(payload: CheckPendingPostRequest) {
-    return this.request<CheckPendingPostResponse>('CheckPendingPost', payload)
+    return this.request<CheckPendingPostResponse>({
+      rpcName: 'CheckPendingPost',
+      inputMessageName: 'CheckPendingPostRequest',
+      outputMessageName: 'CheckPendingPostResponse',
+      payload,
+    })
   }
 
   closeEventCommunity(payload: CloseEventCommunityRequest) {
-    return this.request<CloseEventCommunityResponse>('CloseEventCommunity', payload)
+    return this.request<CloseEventCommunityResponse>({
+      rpcName: 'CloseEventCommunity',
+      inputMessageName: 'CloseEventCommunityRequest',
+      outputMessageName: 'CloseEventCommunityResponse',
+      payload,
+    })
   }
 
   createBookmark(payload: CreateBookmarkRequest) {
-    return this.request<CreateBookmarkResponse>('CreateBookmark', payload)
+    return this.request<CreateBookmarkResponse>({
+      rpcName: 'CreateBookmark',
+      inputMessageName: 'CreateBookmarkRequest',
+      outputMessageName: 'CreateBookmarkResponse',
+      payload,
+    })
   }
 
   createChatRoom(payload: CreateChatRoomRequest) {
-    return this.request<CreateChatRoomResponse>('CreateChatRoom', payload)
+    return this.request<CreateChatRoomResponse>({
+      rpcName: 'CreateChatRoom',
+      inputMessageName: 'CreateChatRoomRequest',
+      outputMessageName: 'CreateChatRoomResponse',
+      payload,
+    })
   }
 
   createCommunity(payload: CreateCommunityRequest) {
-    return this.request<CreateCommunityResponse>('CreateCommunity', payload)
+    return this.request<CreateCommunityResponse>({
+      rpcName: 'CreateCommunity',
+      inputMessageName: 'CreateCommunityRequest',
+      outputMessageName: 'CreateCommunityResponse',
+      payload,
+    })
   }
 
   createEventCommunity(payload: CreateEventCommunityRequest) {
-    return this.request<CreateEventCommunityResponse>('CreateEventCommunity', payload)
+    return this.request<CreateEventCommunityResponse>({
+      rpcName: 'CreateEventCommunity',
+      inputMessageName: 'CreateEventCommunityRequest',
+      outputMessageName: 'CreateEventCommunityResponse',
+      payload,
+    })
   }
 
   createFollowing(payload: CreateFollowingRequest) {
-    return this.request<CreateFollowingResponse>('CreateFollowing', payload)
+    return this.request<CreateFollowingResponse>({
+      rpcName: 'CreateFollowing',
+      inputMessageName: 'CreateFollowingRequest',
+      outputMessageName: 'CreateFollowingResponse',
+      payload,
+    })
   }
 
   createLike(payload: CreateLikeRequest) {
-    return this.request<CreateLikeResponse>('CreateLike', payload)
+    return this.request<CreateLikeResponse>({
+      rpcName: 'CreateLike',
+      inputMessageName: 'CreateLikeRequest',
+      outputMessageName: 'CreateLikeResponse',
+      payload,
+    })
   }
 
   createPersona(payload: CreatePersonaRequest) {
-    return this.request<NewTokenResponse>('CreatePersona', payload)
+    return this.request<NewTokenResponse>({
+      rpcName: 'CreatePersona',
+      inputMessageName: 'CreatePersonaRequest',
+      outputMessageName: 'NewTokenResponse',
+      payload,
+    })
   }
 
   createPersonaFromSession(payload: CreatePersonaFromSessionRequest) {
-    return this.request<SessionResponse>('CreatePersonaFromSession', payload)
+    return this.request<SessionResponse>({
+      rpcName: 'CreatePersonaFromSession',
+      inputMessageName: 'CreatePersonaFromSessionRequest',
+      outputMessageName: 'SessionResponse',
+      payload,
+    })
   }
 
   createPost(payload: CreatePostRequest) {
-    return this.request<CreatePostResponse>('CreatePost', payload)
+    return this.request<CreatePostResponse>({
+      rpcName: 'CreatePost',
+      inputMessageName: 'CreatePostRequest',
+      outputMessageName: 'CreatePostResponse',
+      payload,
+    })
   }
 
   createPostAndEventCommunity(payload: CreatePostAndEventCommunityRequest) {
-    return this.request<CreatePostAndEventCommunityResponse>('CreatePostAndEventCommunity', payload)
+    return this.request<CreatePostAndEventCommunityResponse>({
+      rpcName: 'CreatePostAndEventCommunity',
+      inputMessageName: 'CreatePostAndEventCommunityRequest',
+      outputMessageName: 'CreatePostAndEventCommunityResponse',
+      payload,
+    })
   }
 
   createTopicCommunity(payload: CreateTopicCommunityRequest) {
-    return this.request<CreateTopicCommunityResponse>('CreateTopicCommunity', payload)
+    return this.request<CreateTopicCommunityResponse>({
+      rpcName: 'CreateTopicCommunity',
+      inputMessageName: 'CreateTopicCommunityRequest',
+      outputMessageName: 'CreateTopicCommunityResponse',
+      payload,
+    })
   }
 
   deleteAccount(payload: DeleteAccountRequest) {
-    return this.request<DeleteAccountResponse>('DeleteAccount', payload)
+    return this.request<DeleteAccountResponse>({
+      rpcName: 'DeleteAccount',
+      inputMessageName: 'DeleteAccountRequest',
+      outputMessageName: 'DeleteAccountResponse',
+      payload,
+    })
   }
 
   deleteBookmark(payload: DeleteBookmarkRequest) {
-    return this.request<DeleteBookmarkResponse>('DeleteBookmark', payload)
+    return this.request<DeleteBookmarkResponse>({
+      rpcName: 'DeleteBookmark',
+      inputMessageName: 'DeleteBookmarkRequest',
+      outputMessageName: 'DeleteBookmarkResponse',
+      payload,
+    })
   }
 
   deleteCommunityStamp(payload: DeleteCommunityStampRequest) {
-    return this.request<DeleteCommunityStampResponse>('DeleteCommunityStamp', payload)
+    return this.request<DeleteCommunityStampResponse>({
+      rpcName: 'DeleteCommunityStamp',
+      inputMessageName: 'DeleteCommunityStampRequest',
+      outputMessageName: 'DeleteCommunityStampResponse',
+      payload,
+    })
   }
 
   deleteExcludedCommunityMember(payload: DeleteExcludedCommunityMemberRequest) {
-    return this.request<DeleteExcludedCommunityMemberResponse>('DeleteExcludedCommunityMember', payload)
+    return this.request<DeleteExcludedCommunityMemberResponse>({
+      rpcName: 'DeleteExcludedCommunityMember',
+      inputMessageName: 'DeleteExcludedCommunityMemberRequest',
+      outputMessageName: 'DeleteExcludedCommunityMemberResponse',
+      payload,
+    })
   }
 
   deleteExcludedCommunityMembers(payload: DeleteExcludedCommunityMembersRequest) {
-    return this.request<DeleteExcludedCommunityMembersResponse>('DeleteExcludedCommunityMembers', payload)
+    return this.request<DeleteExcludedCommunityMembersResponse>({
+      rpcName: 'DeleteExcludedCommunityMembers',
+      inputMessageName: 'DeleteExcludedCommunityMembersRequest',
+      outputMessageName: 'DeleteExcludedCommunityMembersResponse',
+      payload,
+    })
   }
 
   deleteFCMToken(payload: DeleteFCMTokenRequest) {
-    return this.request<DeleteFCMTokenResponse>('DeleteFCMToken', payload)
+    return this.request<DeleteFCMTokenResponse>({
+      rpcName: 'DeleteFCMToken',
+      inputMessageName: 'DeleteFCMTokenRequest',
+      outputMessageName: 'DeleteFCMTokenResponse',
+      payload,
+    })
   }
 
   deleteFollowing(payload: DeleteFollowingRequest) {
-    return this.request<DeleteFollowingResponse>('DeleteFollowing', payload)
+    return this.request<DeleteFollowingResponse>({
+      rpcName: 'DeleteFollowing',
+      inputMessageName: 'DeleteFollowingRequest',
+      outputMessageName: 'DeleteFollowingResponse',
+      payload,
+    })
   }
 
   deleteLike(payload: DeleteLikeRequest) {
-    return this.request<DeleteLikeResponse>('DeleteLike', payload)
+    return this.request<DeleteLikeResponse>({
+      rpcName: 'DeleteLike',
+      inputMessageName: 'DeleteLikeRequest',
+      outputMessageName: 'DeleteLikeResponse',
+      payload,
+    })
   }
 
   deletePost(payload: DeletePostRequest) {
-    return this.request<DeletePostResponse>('DeletePost', payload)
+    return this.request<DeletePostResponse>({
+      rpcName: 'DeletePost',
+      inputMessageName: 'DeletePostRequest',
+      outputMessageName: 'DeletePostResponse',
+      payload,
+    })
   }
 
   deleteRepost(payload: DeleteRepostRequest) {
-    return this.request<DeleteRepostResponse>('DeleteRepost', payload)
+    return this.request<DeleteRepostResponse>({
+      rpcName: 'DeleteRepost',
+      inputMessageName: 'DeleteRepostRequest',
+      outputMessageName: 'DeleteRepostResponse',
+      payload,
+    })
   }
 
   deleteSession(payload: DeleteSessionRequest) {
-    return this.request<DeleteSessionResponse>('DeleteSession', payload)
+    return this.request<DeleteSessionResponse>({
+      rpcName: 'DeleteSession',
+      inputMessageName: 'DeleteSessionRequest',
+      outputMessageName: 'DeleteSessionResponse',
+      payload,
+    })
   }
 
   denyJoinCommunity(payload: DenyJoinCommunityRequest) {
-    return this.request<DenyJoinCommunityResponse>('DenyJoinCommunity', payload)
+    return this.request<DenyJoinCommunityResponse>({
+      rpcName: 'DenyJoinCommunity',
+      inputMessageName: 'DenyJoinCommunityRequest',
+      outputMessageName: 'DenyJoinCommunityResponse',
+      payload,
+    })
   }
 
   excludeCommunityMember(payload: ExcludeCommunityMemberRequest) {
-    return this.request<ExcludeCommunityMemberResponse>('ExcludeCommunityMember', payload)
+    return this.request<ExcludeCommunityMemberResponse>({
+      rpcName: 'ExcludeCommunityMember',
+      inputMessageName: 'ExcludeCommunityMemberRequest',
+      outputMessageName: 'ExcludeCommunityMemberResponse',
+      payload,
+    })
   }
 
   excludeCommunityMembers(payload: ExcludeCommunityMembersRequest) {
-    return this.request<ExcludeCommunityMembersResponse>('ExcludeCommunityMembers', payload)
+    return this.request<ExcludeCommunityMembersResponse>({
+      rpcName: 'ExcludeCommunityMembers',
+      inputMessageName: 'ExcludeCommunityMembersRequest',
+      outputMessageName: 'ExcludeCommunityMembersResponse',
+      payload,
+    })
   }
 
   exitChatRoom(payload: ExitChatRoomRequest) {
-    return this.request<ExitChatRoomResponse>('ExitChatRoom', payload)
+    return this.request<ExitChatRoomResponse>({
+      rpcName: 'ExitChatRoom',
+      inputMessageName: 'ExitChatRoomRequest',
+      outputMessageName: 'ExitChatRoomResponse',
+      payload,
+    })
   }
 
   getAnnouncements(payload: GetAnnouncementsRequest) {
-    return this.request<GetAnnouncementsResponse>('GetAnnouncements', payload)
+    return this.request<GetAnnouncementsResponse>({
+      rpcName: 'GetAnnouncements',
+      inputMessageName: 'GetAnnouncementsRequest',
+      outputMessageName: 'GetAnnouncementsResponse',
+      payload,
+    })
   }
 
   getBadgeCount(payload: GetBadgeCountRequest) {
-    return this.request<GetBadgeCountResponse>('GetBadgeCount', payload)
+    return this.request<GetBadgeCountResponse>({
+      rpcName: 'GetBadgeCount',
+      inputMessageName: 'GetBadgeCountRequest',
+      outputMessageName: 'GetBadgeCountResponse',
+      payload,
+    })
   }
 
   getBlockingMembersInCommunity(payload: GetBlockingMembersInCommunityRequest) {
-    return this.request<GetBlockingMembersInCommunityResponse>('GetBlockingMembersInCommunity', payload)
+    return this.request<GetBlockingMembersInCommunityResponse>({
+      rpcName: 'GetBlockingMembersInCommunity',
+      inputMessageName: 'GetBlockingMembersInCommunityRequest',
+      outputMessageName: 'GetBlockingMembersInCommunityResponse',
+      payload,
+    })
   }
 
   getBlockPersonas(payload: GetBlockPersonasRequest) {
-    return this.request<GetBlockPersonasResponse>('GetBlockPersonas', payload)
+    return this.request<GetBlockPersonasResponse>({
+      rpcName: 'GetBlockPersonas',
+      inputMessageName: 'GetBlockPersonasRequest',
+      outputMessageName: 'GetBlockPersonasResponse',
+      payload,
+    })
   }
 
   getChatRoom(payload: GetChatRoomRequest) {
-    return this.request<GetChatRoomResponse>('GetChatRoom', payload)
+    return this.request<GetChatRoomResponse>({
+      rpcName: 'GetChatRoom',
+      inputMessageName: 'GetChatRoomRequest',
+      outputMessageName: 'GetChatRoomResponse',
+      payload,
+    })
   }
 
   getChatRoomMessages(payload: GetChatRoomMessagesRequest) {
-    return this.request<GetChatRoomMessagesResponse>('GetChatRoomMessages', payload)
+    return this.request<GetChatRoomMessagesResponse>({
+      rpcName: 'GetChatRoomMessages',
+      inputMessageName: 'GetChatRoomMessagesRequest',
+      outputMessageName: 'GetChatRoomMessagesResponse',
+      payload,
+    })
   }
 
   getChatRooms(payload: GetChatRoomsRequest) {
-    return this.request<GetChatRoomsResponse>('GetChatRooms', payload)
+    return this.request<GetChatRoomsResponse>({
+      rpcName: 'GetChatRooms',
+      inputMessageName: 'GetChatRoomsRequest',
+      outputMessageName: 'GetChatRoomsResponse',
+      payload,
+    })
   }
 
   getCommunities(payload: GetCommunitiesRequest) {
-    return this.request<GetCommunitiesResponse>('GetCommunities', payload)
+    return this.request<GetCommunitiesResponse>({
+      rpcName: 'GetCommunities',
+      inputMessageName: 'GetCommunitiesRequest',
+      outputMessageName: 'GetCommunitiesResponse',
+      payload,
+    })
   }
 
   getCommunitiesPostNotifications(payload: GetCommunitiesPostNotificationsRequest) {
-    return this.request<GetCommunitiesPostNotificationsResponse>('GetCommunitiesPostNotifications', payload)
+    return this.request<GetCommunitiesPostNotificationsResponse>({
+      rpcName: 'GetCommunitiesPostNotifications',
+      inputMessageName: 'GetCommunitiesPostNotificationsRequest',
+      outputMessageName: 'GetCommunitiesPostNotificationsResponse',
+      payload,
+    })
   }
 
   getCommunity(payload: GetCommunityRequest) {
-    return this.request<GetCommunityResponse>('GetCommunity', payload)
+    return this.request<GetCommunityResponse>({
+      rpcName: 'GetCommunity',
+      inputMessageName: 'GetCommunityRequest',
+      outputMessageName: 'GetCommunityResponse',
+      payload,
+    })
   }
 
   getCommunityBookmarks(payload: GetCommunityBookmarksRequest) {
-    return this.request<GetCommunityBookmarksResponse>('GetCommunityBookmarks', payload)
+    return this.request<GetCommunityBookmarksResponse>({
+      rpcName: 'GetCommunityBookmarks',
+      inputMessageName: 'GetCommunityBookmarksRequest',
+      outputMessageName: 'GetCommunityBookmarksResponse',
+      payload,
+    })
   }
 
   getCommunityInvitablePersonas(payload: GetCommunityInvitablePersonasRequest) {
-    return this.request<GetCommunityInvitablePersonasResponse>('GetCommunityInvitablePersonas', payload)
+    return this.request<GetCommunityInvitablePersonasResponse>({
+      rpcName: 'GetCommunityInvitablePersonas',
+      inputMessageName: 'GetCommunityInvitablePersonasRequest',
+      outputMessageName: 'GetCommunityInvitablePersonasResponse',
+      payload,
+    })
   }
 
   getCommunityInvitation(payload: GetCommunityInvitationRequest) {
-    return this.request<GetCommunityInvitationResponse>('GetCommunityInvitation', payload)
+    return this.request<GetCommunityInvitationResponse>({
+      rpcName: 'GetCommunityInvitation',
+      inputMessageName: 'GetCommunityInvitationRequest',
+      outputMessageName: 'GetCommunityInvitationResponse',
+      payload,
+    })
   }
 
   getCommunityInvitationCode(payload: GetCommunityInvitationCodeRequest) {
-    return this.request<GetCommunityInvitationCodeResponse>('GetCommunityInvitationCode', payload)
+    return this.request<GetCommunityInvitationCodeResponse>({
+      rpcName: 'GetCommunityInvitationCode',
+      inputMessageName: 'GetCommunityInvitationCodeRequest',
+      outputMessageName: 'GetCommunityInvitationCodeResponse',
+      payload,
+    })
   }
 
   getCommunityJoinRequests(payload: GetCommunityJoinRequestsRequest) {
-    return this.request<GetCommunityJoinRequestsResponse>('GetCommunityJoinRequests', payload)
+    return this.request<GetCommunityJoinRequestsResponse>({
+      rpcName: 'GetCommunityJoinRequests',
+      inputMessageName: 'GetCommunityJoinRequestsRequest',
+      outputMessageName: 'GetCommunityJoinRequestsResponse',
+      payload,
+    })
   }
 
   getCommunityPostPin(payload: GetCommunityPostPinRequest) {
-    return this.request<GetCommunityPostPinResponse>('GetCommunityPostPin', payload)
+    return this.request<GetCommunityPostPinResponse>({
+      rpcName: 'GetCommunityPostPin',
+      inputMessageName: 'GetCommunityPostPinRequest',
+      outputMessageName: 'GetCommunityPostPinResponse',
+      payload,
+    })
   }
 
   getCommunityStamps(payload: GetCommunityStampsRequest) {
-    return this.request<GetCommunityStampsResponse>('GetCommunityStamps', payload)
+    return this.request<GetCommunityStampsResponse>({
+      rpcName: 'GetCommunityStamps',
+      inputMessageName: 'GetCommunityStampsRequest',
+      outputMessageName: 'GetCommunityStampsResponse',
+      payload,
+    })
   }
 
   getCommunityTimeline(payload: GetCommunityTimelineRequest) {
-    return this.request<GetTimelineResponse>('GetCommunityTimeline', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetCommunityTimeline',
+      inputMessageName: 'GetCommunityTimelineRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getCompletedOrClosedEventCommunities(payload: GetCompletedOrClosedEventCommunitiesRequest) {
-    return this.request<GetCompletedOrClosedEventCommunitiesResponse>('GetCompletedOrClosedEventCommunities', payload)
+    return this.request<GetCompletedOrClosedEventCommunitiesResponse>({
+      rpcName: 'GetCompletedOrClosedEventCommunities',
+      inputMessageName: 'GetCompletedOrClosedEventCommunitiesRequest',
+      outputMessageName: 'GetCompletedOrClosedEventCommunitiesResponse',
+      payload,
+    })
   }
 
   getEventCommunitiesWithinCommunity(payload: GetEventCommunitiesWithinCommunityRequest) {
-    return this.request<GetEventCommunitiesWithinCommunityResponse>('GetEventCommunitiesWithinCommunity', payload)
+    return this.request<GetEventCommunitiesWithinCommunityResponse>({
+      rpcName: 'GetEventCommunitiesWithinCommunity',
+      inputMessageName: 'GetEventCommunitiesWithinCommunityRequest',
+      outputMessageName: 'GetEventCommunitiesWithinCommunityResponse',
+      payload,
+    })
   }
 
   getExclusiveCommunityMembers(payload: GetExclusiveCommunityMembersRequest) {
-    return this.request<GetExclusiveCommunityMembersResponse>('GetExclusiveCommunityMembers', payload)
+    return this.request<GetExclusiveCommunityMembersResponse>({
+      rpcName: 'GetExclusiveCommunityMembers',
+      inputMessageName: 'GetExclusiveCommunityMembersRequest',
+      outputMessageName: 'GetExclusiveCommunityMembersResponse',
+      payload,
+    })
   }
 
   getFeatureFlags(payload: GetFeatureFlagsRequest) {
-    return this.request<GetFeatureFlagsResponse>('GetFeatureFlags', payload)
+    return this.request<GetFeatureFlagsResponse>({
+      rpcName: 'GetFeatureFlags',
+      inputMessageName: 'GetFeatureFlagsRequest',
+      outputMessageName: 'GetFeatureFlagsResponse',
+      payload,
+    })
   }
 
   getFollowers(payload: GetFollowersRequest) {
-    return this.request<GetFollowersResponse>('GetFollowers', payload)
+    return this.request<GetFollowersResponse>({
+      rpcName: 'GetFollowers',
+      inputMessageName: 'GetFollowersRequest',
+      outputMessageName: 'GetFollowersResponse',
+      payload,
+    })
   }
 
   getFollowingCount(payload: GetFollowingCountRequest) {
-    return this.request<GetFollowingCountResponse>('GetFollowingCount', payload)
+    return this.request<GetFollowingCountResponse>({
+      rpcName: 'GetFollowingCount',
+      inputMessageName: 'GetFollowingCountRequest',
+      outputMessageName: 'GetFollowingCountResponse',
+      payload,
+    })
   }
 
   getFollowingRequests(payload: GetFollowingRequestsRequest) {
-    return this.request<GetFollowingRequestsResponse>('GetFollowingRequests', payload)
+    return this.request<GetFollowingRequestsResponse>({
+      rpcName: 'GetFollowingRequests',
+      inputMessageName: 'GetFollowingRequestsRequest',
+      outputMessageName: 'GetFollowingRequestsResponse',
+      payload,
+    })
   }
 
   getFollowings(payload: GetFollowingsRequest) {
-    return this.request<GetFollowingsResponse>('GetFollowings', payload)
+    return this.request<GetFollowingsResponse>({
+      rpcName: 'GetFollowings',
+      inputMessageName: 'GetFollowingsRequest',
+      outputMessageName: 'GetFollowingsResponse',
+      payload,
+    })
   }
 
   getFollowingsTimeline(payload: GetFollowingsTimelineRequest) {
-    return this.request<GetTimelineResponse>('GetFollowingsTimeline', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetFollowingsTimeline',
+      inputMessageName: 'GetFollowingsTimelineRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getGlobalCount(payload: GetGlobalCountRequest) {
-    return this.request<GetGlobalCountResponse>('GetGlobalCount', payload)
+    return this.request<GetGlobalCountResponse>({
+      rpcName: 'GetGlobalCount',
+      inputMessageName: 'GetGlobalCountRequest',
+      outputMessageName: 'GetGlobalCountResponse',
+      payload,
+    })
   }
 
   getHashtagTimeline(payload: GetHashtagTimelineRequest) {
-    return this.request<GetTimelineResponse>('GetHashtagTimeline', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetHashtagTimeline',
+      inputMessageName: 'GetHashtagTimelineRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getInAppEventStatus(payload: GetInAppEventStatusRequest) {
-    return this.request<GetInAppEventStatusResponse>('GetInAppEventStatus', payload)
+    return this.request<GetInAppEventStatusResponse>({
+      rpcName: 'GetInAppEventStatus',
+      inputMessageName: 'GetInAppEventStatusRequest',
+      outputMessageName: 'GetInAppEventStatusResponse',
+      payload,
+    })
   }
 
   getInAppEventStatusAll(payload: GetInAppEventStatusAllRequest) {
-    return this.request<GetInAppEventStatusAllResponse>('GetInAppEventStatusAll', payload)
+    return this.request<GetInAppEventStatusAllResponse>({
+      rpcName: 'GetInAppEventStatusAll',
+      inputMessageName: 'GetInAppEventStatusAllRequest',
+      outputMessageName: 'GetInAppEventStatusAllResponse',
+      payload,
+    })
   }
 
   getInvitation(payload: GetInvitationRequest) {
-    return this.request<GetInvitationResponse>('GetInvitation', payload)
+    return this.request<GetInvitationResponse>({
+      rpcName: 'GetInvitation',
+      inputMessageName: 'GetInvitationRequest',
+      outputMessageName: 'GetInvitationResponse',
+      payload,
+    })
   }
 
   getInvitationCode(payload: GetInvitationCodeRequest) {
-    return this.request<GetInvitationCodeResponse>('GetInvitationCode', payload)
+    return this.request<GetInvitationCodeResponse>({
+      rpcName: 'GetInvitationCode',
+      inputMessageName: 'GetInvitationCodeRequest',
+      outputMessageName: 'GetInvitationCodeResponse',
+      payload,
+    })
   }
 
   getLatestRenameLog(payload: GetLatestRenameLogRequest) {
-    return this.request<GetLatestRenameLogResponse>('GetLatestRenameLog', payload)
+    return this.request<GetLatestRenameLogResponse>({
+      rpcName: 'GetLatestRenameLog',
+      inputMessageName: 'GetLatestRenameLogRequest',
+      outputMessageName: 'GetLatestRenameLogResponse',
+      payload,
+    })
   }
 
   getLikingPersonas(payload: GetLikingPersonasRequest) {
-    return this.request<GetLikingPersonasResponse>('GetLikingPersonas', payload)
+    return this.request<GetLikingPersonasResponse>({
+      rpcName: 'GetLikingPersonas',
+      inputMessageName: 'GetLikingPersonasRequest',
+      outputMessageName: 'GetLikingPersonasResponse',
+      payload,
+    })
   }
 
   getLimitedTimeCampaign(payload: GetLimitedTimeCampaignRequest) {
-    return this.request<GetLimitedTimeCampaignResponse>('GetLimitedTimeCampaign', payload)
+    return this.request<GetLimitedTimeCampaignResponse>({
+      rpcName: 'GetLimitedTimeCampaign',
+      inputMessageName: 'GetLimitedTimeCampaignRequest',
+      outputMessageName: 'GetLimitedTimeCampaignResponse',
+      payload,
+    })
   }
 
   getMedia(payload: GetMediaRequest) {
-    return this.request<GetMediaResponse>('GetMedia', payload)
+    return this.request<GetMediaResponse>({
+      rpcName: 'GetMedia',
+      inputMessageName: 'GetMediaRequest',
+      outputMessageName: 'GetMediaResponse',
+      payload,
+    })
   }
 
   getMuteChatRooms(payload: GetMuteChatRoomsRequest) {
-    return this.request<GetMuteChatRoomsResponse>('GetMuteChatRooms', payload)
+    return this.request<GetMuteChatRoomsResponse>({
+      rpcName: 'GetMuteChatRooms',
+      inputMessageName: 'GetMuteChatRoomsRequest',
+      outputMessageName: 'GetMuteChatRoomsResponse',
+      payload,
+    })
   }
 
   getMutePersonas(payload: GetMutePersonasRequest) {
-    return this.request<GetMutePersonasResponse>('GetMutePersonas', payload)
+    return this.request<GetMutePersonasResponse>({
+      rpcName: 'GetMutePersonas',
+      inputMessageName: 'GetMutePersonasRequest',
+      outputMessageName: 'GetMutePersonasResponse',
+      payload,
+    })
   }
 
   getNotifications(payload: GetNotificationsRequest) {
-    return this.request<GetNotificationsResponse>('GetNotifications', payload)
+    return this.request<GetNotificationsResponse>({
+      rpcName: 'GetNotifications',
+      inputMessageName: 'GetNotificationsRequest',
+      outputMessageName: 'GetNotificationsResponse',
+      payload,
+    })
   }
 
   getOngoingEventCommunities(payload: GetOngoingEventCommunitiesRequest) {
-    return this.request<GetOngoingEventCommunitiesResponse>('GetOngoingEventCommunities', payload)
+    return this.request<GetOngoingEventCommunitiesResponse>({
+      rpcName: 'GetOngoingEventCommunities',
+      inputMessageName: 'GetOngoingEventCommunitiesRequest',
+      outputMessageName: 'GetOngoingEventCommunitiesResponse',
+      payload,
+    })
   }
 
   getOngoingOrUpcomingEventCommunities(payload: GetOngoingOrUpcomingEventCommunitiesRequest) {
-    return this.request<GetOngoingOrUpcomingEventCommunitiesResponse>('GetOngoingOrUpcomingEventCommunities', payload)
+    return this.request<GetOngoingOrUpcomingEventCommunitiesResponse>({
+      rpcName: 'GetOngoingOrUpcomingEventCommunities',
+      inputMessageName: 'GetOngoingOrUpcomingEventCommunitiesRequest',
+      outputMessageName: 'GetOngoingOrUpcomingEventCommunitiesResponse',
+      payload,
+    })
   }
 
   getParticipatingCommunities(payload: GetParticipatingCommunitiesRequest) {
-    return this.request<GetParticipatingCommunitiesResponse>('GetParticipatingCommunities', payload)
+    return this.request<GetParticipatingCommunitiesResponse>({
+      rpcName: 'GetParticipatingCommunities',
+      inputMessageName: 'GetParticipatingCommunitiesRequest',
+      outputMessageName: 'GetParticipatingCommunitiesResponse',
+      payload,
+    })
   }
 
   getParticipatingCommunityMembers(payload: GetParticipatingCommunityMembersRequest) {
-    return this.request<GetParticipatingCommunityMembersResponse>('GetParticipatingCommunityMembers', payload)
+    return this.request<GetParticipatingCommunityMembersResponse>({
+      rpcName: 'GetParticipatingCommunityMembers',
+      inputMessageName: 'GetParticipatingCommunityMembersRequest',
+      outputMessageName: 'GetParticipatingCommunityMembersResponse',
+      payload,
+    })
   }
 
   getPastOrClosedEventCommunities(payload: GetPastOrClosedEventCommunitiesRequest) {
-    return this.request<GetPastOrClosedEventCommunitiesResponse>('GetPastOrClosedEventCommunities', payload)
+    return this.request<GetPastOrClosedEventCommunitiesResponse>({
+      rpcName: 'GetPastOrClosedEventCommunities',
+      inputMessageName: 'GetPastOrClosedEventCommunitiesRequest',
+      outputMessageName: 'GetPastOrClosedEventCommunitiesResponse',
+      payload,
+    })
   }
 
   getPendingFollowingRequests(payload: GetPendingFollowingRequestsRequest) {
-    return this.request<GetPendingFollowingRequestsResponse>('GetPendingFollowingRequests', payload)
+    return this.request<GetPendingFollowingRequestsResponse>({
+      rpcName: 'GetPendingFollowingRequests',
+      inputMessageName: 'GetPendingFollowingRequestsRequest',
+      outputMessageName: 'GetPendingFollowingRequestsResponse',
+      payload,
+    })
   }
 
   getPendingVerificationSocialMedia(payload: GetPendingVerificationSocialMediaRequest) {
-    return this.request<GetPendingVerificationSocialMediaResponse>('GetPendingVerificationSocialMedia', payload)
+    return this.request<GetPendingVerificationSocialMediaResponse>({
+      rpcName: 'GetPendingVerificationSocialMedia',
+      inputMessageName: 'GetPendingVerificationSocialMediaRequest',
+      outputMessageName: 'GetPendingVerificationSocialMediaResponse',
+      payload,
+    })
   }
 
   getPersonaByName(payload: GetPersonaByNameRequest) {
-    return this.request<GetPersonaResponse>('GetPersonaByName', payload)
+    return this.request<GetPersonaResponse>({
+      rpcName: 'GetPersonaByName',
+      inputMessageName: 'GetPersonaByNameRequest',
+      outputMessageName: 'GetPersonaResponse',
+      payload,
+    })
   }
 
   getPersonalCommunityPosts(payload: GetPersonalCommunityPostsRequest) {
-    return this.request<GetTimelineResponse>('GetPersonalCommunityPosts', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetPersonalCommunityPosts',
+      inputMessageName: 'GetPersonalCommunityPostsRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getPersonalInformation(payload: GetPersonalInformationRequest) {
-    return this.request<GetPersonalInformationResponse>('GetPersonalInformation', payload)
+    return this.request<GetPersonalInformationResponse>({
+      rpcName: 'GetPersonalInformation',
+      inputMessageName: 'GetPersonalInformationRequest',
+      outputMessageName: 'GetPersonalInformationResponse',
+      payload,
+    })
   }
 
   getPersonalTimeline(payload: GetPersonalTimelineRequest) {
-    return this.request<GetTimelineResponse>('GetPersonalTimeline', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetPersonalTimeline',
+      inputMessageName: 'GetPersonalTimelineRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getPersonas(payload: GetPersonasRequest) {
-    return this.request<GetPersonasResponse>('GetPersonas', payload)
+    return this.request<GetPersonasResponse>({
+      rpcName: 'GetPersonas',
+      inputMessageName: 'GetPersonasRequest',
+      outputMessageName: 'GetPersonasResponse',
+      payload,
+    })
   }
 
   getPersonasPostNotifications(payload: GetPersonasPostNotificationsRequest) {
-    return this.request<GetPersonasPostNotificationsResponse>('GetPersonasPostNotifications', payload)
+    return this.request<GetPersonasPostNotificationsResponse>({
+      rpcName: 'GetPersonasPostNotifications',
+      inputMessageName: 'GetPersonasPostNotificationsRequest',
+      outputMessageName: 'GetPersonasPostNotificationsResponse',
+      payload,
+    })
   }
 
   getPost(payload: GetPostRequest) {
-    return this.request<GetPostResponse>('GetPost', payload)
+    return this.request<GetPostResponse>({
+      rpcName: 'GetPost',
+      inputMessageName: 'GetPostRequest',
+      outputMessageName: 'GetPostResponse',
+      payload,
+    })
   }
 
   getPostableCommunities(payload: GetPostableCommunitiesRequest) {
-    return this.request<GetPostableCommunitiesResponse>('GetPostableCommunities', payload)
+    return this.request<GetPostableCommunitiesResponse>({
+      rpcName: 'GetPostableCommunities',
+      inputMessageName: 'GetPostableCommunitiesRequest',
+      outputMessageName: 'GetPostableCommunitiesResponse',
+      payload,
+    })
   }
 
   getPosts(payload: GetPostsRequest) {
-    return this.request<GetPostsResponse>('GetPosts', payload)
+    return this.request<GetPostsResponse>({
+      rpcName: 'GetPosts',
+      inputMessageName: 'GetPostsRequest',
+      outputMessageName: 'GetPostsResponse',
+      payload,
+    })
   }
 
   getPostStampReactions(payload: GetPostStampReactionsRequest) {
-    return this.request<GetPostStampReactionsResponse>('GetPostStampReactions', payload)
+    return this.request<GetPostStampReactionsResponse>({
+      rpcName: 'GetPostStampReactions',
+      inputMessageName: 'GetPostStampReactionsRequest',
+      outputMessageName: 'GetPostStampReactionsResponse',
+      payload,
+    })
   }
 
   getProfile(payload: GetProfileRequest) {
-    return this.request<GetProfileResponse>('GetProfile', payload)
+    return this.request<GetProfileResponse>({
+      rpcName: 'GetProfile',
+      inputMessageName: 'GetProfileRequest',
+      outputMessageName: 'GetProfileResponse',
+      payload,
+    })
   }
 
   getProfileByName(payload: GetProfileByNameRequest) {
-    return this.request<GetProfileResponse>('GetProfileByName', payload)
+    return this.request<GetProfileResponse>({
+      rpcName: 'GetProfileByName',
+      inputMessageName: 'GetProfileByNameRequest',
+      outputMessageName: 'GetProfileResponse',
+      payload,
+    })
   }
 
   getProfilePostPin(payload: GetProfilePostPinRequest) {
-    return this.request<GetProfilePostPinResponse>('GetProfilePostPin', payload)
+    return this.request<GetProfilePostPinResponse>({
+      rpcName: 'GetProfilePostPin',
+      inputMessageName: 'GetProfilePostPinRequest',
+      outputMessageName: 'GetProfilePostPinResponse',
+      payload,
+    })
   }
 
   getQuotePosts(payload: GetQuotePostsRequest) {
-    return this.request<GetQuotePostsResponse>('GetQuotePosts', payload)
+    return this.request<GetQuotePostsResponse>({
+      rpcName: 'GetQuotePosts',
+      inputMessageName: 'GetQuotePostsRequest',
+      outputMessageName: 'GetQuotePostsResponse',
+      payload,
+    })
   }
 
   getReactionPosts(payload: GetReactionPostsRequest) {
-    return this.request<GetReactionPostsResponse>('GetReactionPosts', payload)
+    return this.request<GetReactionPostsResponse>({
+      rpcName: 'GetReactionPosts',
+      inputMessageName: 'GetReactionPostsRequest',
+      outputMessageName: 'GetReactionPostsResponse',
+      payload,
+    })
   }
 
   getRecommendations(payload: GetRecommendationsRequest) {
-    return this.request<GetRecommendationsResponse>('GetRecommendations', payload)
+    return this.request<GetRecommendationsResponse>({
+      rpcName: 'GetRecommendations',
+      inputMessageName: 'GetRecommendationsRequest',
+      outputMessageName: 'GetRecommendationsResponse',
+      payload,
+    })
   }
 
   getRecommendedCommunities(payload: GetRecommendedCommunitiesRequest) {
-    return this.request<GetRecommendedCommunitiesResponse>('GetRecommendedCommunities', payload)
+    return this.request<GetRecommendedCommunitiesResponse>({
+      rpcName: 'GetRecommendedCommunities',
+      inputMessageName: 'GetRecommendedCommunitiesRequest',
+      outputMessageName: 'GetRecommendedCommunitiesResponse',
+      payload,
+    })
   }
 
   getRecommendedTimeline(payload: GetRecommendedTimelineRequest) {
-    return this.request<GetTimelineResponse>('GetRecommendedTimeline', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetRecommendedTimeline',
+      inputMessageName: 'GetRecommendedTimelineRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getRemoteConfig(payload: GetRemoteConfigRequest) {
-    return this.request<GetRemoteConfigResponse>('GetRemoteConfig', payload)
+    return this.request<GetRemoteConfigResponse>({
+      rpcName: 'GetRemoteConfig',
+      inputMessageName: 'GetRemoteConfigRequest',
+      outputMessageName: 'GetRemoteConfigResponse',
+      payload,
+    })
   }
 
   getRemotePushSettings(payload: GetRemotePushSettingsRequest) {
-    return this.request<GetRemotePushSettingsResponse>('GetRemotePushSettings', payload)
+    return this.request<GetRemotePushSettingsResponse>({
+      rpcName: 'GetRemotePushSettings',
+      inputMessageName: 'GetRemotePushSettingsRequest',
+      outputMessageName: 'GetRemotePushSettingsResponse',
+      payload,
+    })
   }
 
   getReplies(payload: GetRepliesRequest) {
-    return this.request<GetRepliesResponse>('GetReplies', payload)
+    return this.request<GetRepliesResponse>({
+      rpcName: 'GetReplies',
+      inputMessageName: 'GetRepliesRequest',
+      outputMessageName: 'GetRepliesResponse',
+      payload,
+    })
   }
 
   getReplyAncestors(payload: GetReplyAncestorsRequest) {
-    return this.request<GetReplyAncestorsResponse>('GetReplyAncestors', payload)
+    return this.request<GetReplyAncestorsResponse>({
+      rpcName: 'GetReplyAncestors',
+      inputMessageName: 'GetReplyAncestorsRequest',
+      outputMessageName: 'GetReplyAncestorsResponse',
+      payload,
+    })
   }
 
   getRepostingPersonas(payload: GetRepostingPersonasRequest) {
-    return this.request<GetRepostingPersonasResponse>('GetRepostingPersonas', payload)
+    return this.request<GetRepostingPersonasResponse>({
+      rpcName: 'GetRepostingPersonas',
+      inputMessageName: 'GetRepostingPersonasRequest',
+      outputMessageName: 'GetRepostingPersonasResponse',
+      payload,
+    })
   }
 
   getRequestedChatRooms(payload: GetRequestedChatRoomsRequest) {
-    return this.request<GetRequestedChatRoomsResponse>('GetRequestedChatRooms', payload)
+    return this.request<GetRequestedChatRoomsResponse>({
+      rpcName: 'GetRequestedChatRooms',
+      inputMessageName: 'GetRequestedChatRoomsRequest',
+      outputMessageName: 'GetRequestedChatRoomsResponse',
+      payload,
+    })
   }
 
   getSession(payload: GetSessionRequest) {
-    return this.request<SessionResponse>('GetSession', payload)
+    return this.request<SessionResponse>({
+      rpcName: 'GetSession',
+      inputMessageName: 'GetSessionRequest',
+      outputMessageName: 'SessionResponse',
+      payload,
+    })
   }
 
   getStamps(payload: GetStampsRequest) {
-    return this.request<GetStampsResponse>('GetStamps', payload)
+    return this.request<GetStampsResponse>({
+      rpcName: 'GetStamps',
+      inputMessageName: 'GetStampsRequest',
+      outputMessageName: 'GetStampsResponse',
+      payload,
+    })
   }
 
   getStorageRateLimit(payload: GetStorageRateLimitRequest) {
-    return this.request<GetStorageRateLimitResponse>('GetStorageRateLimit', payload)
+    return this.request<GetStorageRateLimitResponse>({
+      rpcName: 'GetStorageRateLimit',
+      inputMessageName: 'GetStorageRateLimitRequest',
+      outputMessageName: 'GetStorageRateLimitResponse',
+      payload,
+    })
   }
 
   getSubscribingFeeds(payload: GetSubscribingFeedsRequest) {
-    return this.request<GetSubscribingFeedsResponse>('GetSubscribingFeeds', payload)
+    return this.request<GetSubscribingFeedsResponse>({
+      rpcName: 'GetSubscribingFeeds',
+      inputMessageName: 'GetSubscribingFeedsRequest',
+      outputMessageName: 'GetSubscribingFeedsResponse',
+      payload,
+    })
   }
 
   getThreadPosts(payload: GetThreadPostsRequest) {
-    return this.request<GetTimelineResponse>('GetThreadPosts', payload)
+    return this.request<GetTimelineResponse>({
+      rpcName: 'GetThreadPosts',
+      inputMessageName: 'GetThreadPostsRequest',
+      outputMessageName: 'GetTimelineResponse',
+      payload,
+    })
   }
 
   getTimelineSetting(payload: GetTimelineSettingRequest) {
-    return this.request<GetTimelineSettingResponse>('GetTimelineSetting', payload)
+    return this.request<GetTimelineSettingResponse>({
+      rpcName: 'GetTimelineSetting',
+      inputMessageName: 'GetTimelineSettingRequest',
+      outputMessageName: 'GetTimelineSettingResponse',
+      payload,
+    })
   }
 
   getUnreadChatRoomCount(payload: GetUnreadChatRoomCountRequest) {
-    return this.request<GetUnreadChatRoomCountResponse>('GetUnreadChatRoomCount', payload)
+    return this.request<GetUnreadChatRoomCountResponse>({
+      rpcName: 'GetUnreadChatRoomCount',
+      inputMessageName: 'GetUnreadChatRoomCountRequest',
+      outputMessageName: 'GetUnreadChatRoomCountResponse',
+      payload,
+    })
   }
 
   getUpcomingEventCommunities(payload: GetUpcomingEventCommunitiesRequest) {
-    return this.request<GetUpcomingEventCommunitiesResponse>('GetUpcomingEventCommunities', payload)
+    return this.request<GetUpcomingEventCommunitiesResponse>({
+      rpcName: 'GetUpcomingEventCommunities',
+      inputMessageName: 'GetUpcomingEventCommunitiesRequest',
+      outputMessageName: 'GetUpcomingEventCommunitiesResponse',
+      payload,
+    })
   }
 
   getWaitingCommunities(payload: GetWaitingCommunitiesRequest) {
-    return this.request<GetWaitingCommunitiesResponse>('GetWaitingCommunities', payload)
+    return this.request<GetWaitingCommunitiesResponse>({
+      rpcName: 'GetWaitingCommunities',
+      inputMessageName: 'GetWaitingCommunitiesRequest',
+      outputMessageName: 'GetWaitingCommunitiesResponse',
+      payload,
+    })
   }
 
   incrementGlobalCount(payload: IncrementGlobalCountRequest) {
-    return this.request<IncrementGlobalCountResponse>('IncrementGlobalCount', payload)
+    return this.request<IncrementGlobalCountResponse>({
+      rpcName: 'IncrementGlobalCount',
+      inputMessageName: 'IncrementGlobalCountRequest',
+      outputMessageName: 'IncrementGlobalCountResponse',
+      payload,
+    })
   }
 
   joinCommunity(payload: JoinCommunityRequest) {
-    return this.request<JoinCommunityResponse>('JoinCommunity', payload)
+    return this.request<JoinCommunityResponse>({
+      rpcName: 'JoinCommunity',
+      inputMessageName: 'JoinCommunityRequest',
+      outputMessageName: 'JoinCommunityResponse',
+      payload,
+    })
   }
 
   leaveCommunity(payload: LeaveCommunityRequest) {
-    return this.request<LeaveCommunityResponse>('LeaveCommunity', payload)
+    return this.request<LeaveCommunityResponse>({
+      rpcName: 'LeaveCommunity',
+      inputMessageName: 'LeaveCommunityRequest',
+      outputMessageName: 'LeaveCommunityResponse',
+      payload,
+    })
   }
 
   makeChatRoomInvisible(payload: MakeChatRoomInvisibleRequest) {
-    return this.request<MakeChatRoomInvisibleResponse>('MakeChatRoomInvisible', payload)
+    return this.request<MakeChatRoomInvisibleResponse>({
+      rpcName: 'MakeChatRoomInvisible',
+      inputMessageName: 'MakeChatRoomInvisibleRequest',
+      outputMessageName: 'MakeChatRoomInvisibleResponse',
+      payload,
+    })
   }
 
   makeChatRoomMute(payload: MakeChatRoomMuteRequest) {
-    return this.request<MakeChatRoomMuteResponse>('MakeChatRoomMute', payload)
+    return this.request<MakeChatRoomMuteResponse>({
+      rpcName: 'MakeChatRoomMute',
+      inputMessageName: 'MakeChatRoomMuteRequest',
+      outputMessageName: 'MakeChatRoomMuteResponse',
+      payload,
+    })
   }
 
   makeChatRoomUnmute(payload: MakeChatRoomUnmuteRequest) {
-    return this.request<MakeChatRoomUnmuteResponse>('MakeChatRoomUnmute', payload)
+    return this.request<MakeChatRoomUnmuteResponse>({
+      rpcName: 'MakeChatRoomUnmute',
+      inputMessageName: 'MakeChatRoomUnmuteRequest',
+      outputMessageName: 'MakeChatRoomUnmuteResponse',
+      payload,
+    })
   }
 
   makeCommunityPostNotificationDisabled(payload: MakeCommunityPostNotificationDisabledRequest) {
-    return this.request<MakeCommunityPostNotificationDisabledResponse>('MakeCommunityPostNotificationDisabled', payload)
+    return this.request<MakeCommunityPostNotificationDisabledResponse>({
+      rpcName: 'MakeCommunityPostNotificationDisabled',
+      inputMessageName: 'MakeCommunityPostNotificationDisabledRequest',
+      outputMessageName: 'MakeCommunityPostNotificationDisabledResponse',
+      payload,
+    })
   }
 
   makeCommunityPostNotificationEnabled(payload: MakeCommunityPostNotificationEnabledRequest) {
-    return this.request<MakeCommunityPostNotificationEnabledResponse>('MakeCommunityPostNotificationEnabled', payload)
+    return this.request<MakeCommunityPostNotificationEnabledResponse>({
+      rpcName: 'MakeCommunityPostNotificationEnabled',
+      inputMessageName: 'MakeCommunityPostNotificationEnabledRequest',
+      outputMessageName: 'MakeCommunityPostNotificationEnabledResponse',
+      payload,
+    })
   }
 
   makeCommunitySubscriptionDisabled(payload: MakeCommunitySubscriptionDisabledRequest) {
-    return this.request<MakeCommunitySubscriptionDisabledResponse>('MakeCommunitySubscriptionDisabled', payload)
+    return this.request<MakeCommunitySubscriptionDisabledResponse>({
+      rpcName: 'MakeCommunitySubscriptionDisabled',
+      inputMessageName: 'MakeCommunitySubscriptionDisabledRequest',
+      outputMessageName: 'MakeCommunitySubscriptionDisabledResponse',
+      payload,
+    })
   }
 
   makeCommunitySubscriptionEnabled(payload: MakeCommunitySubscriptionEnabledRequest) {
-    return this.request<MakeCommunitySubscriptionEnabledResponse>('MakeCommunitySubscriptionEnabled', payload)
+    return this.request<MakeCommunitySubscriptionEnabledResponse>({
+      rpcName: 'MakeCommunitySubscriptionEnabled',
+      inputMessageName: 'MakeCommunitySubscriptionEnabledRequest',
+      outputMessageName: 'MakeCommunitySubscriptionEnabledResponse',
+      payload,
+    })
   }
 
   makePersonaBlock(payload: MakePersonaBlockRequest) {
-    return this.request<MakePersonaBlockResponse>('MakePersonaBlock', payload)
+    return this.request<MakePersonaBlockResponse>({
+      rpcName: 'MakePersonaBlock',
+      inputMessageName: 'MakePersonaBlockRequest',
+      outputMessageName: 'MakePersonaBlockResponse',
+      payload,
+    })
   }
 
   makePersonaMute(payload: MakePersonaMuteRequest) {
-    return this.request<MakePersonaMuteResponse>('MakePersonaMute', payload)
+    return this.request<MakePersonaMuteResponse>({
+      rpcName: 'MakePersonaMute',
+      inputMessageName: 'MakePersonaMuteRequest',
+      outputMessageName: 'MakePersonaMuteResponse',
+      payload,
+    })
   }
 
   makePersonaPostNotificationDisabled(payload: MakePersonaPostNotificationDisabledRequest) {
-    return this.request<MakePersonaPostNotificationDisabledResponse>('MakePersonaPostNotificationDisabled', payload)
+    return this.request<MakePersonaPostNotificationDisabledResponse>({
+      rpcName: 'MakePersonaPostNotificationDisabled',
+      inputMessageName: 'MakePersonaPostNotificationDisabledRequest',
+      outputMessageName: 'MakePersonaPostNotificationDisabledResponse',
+      payload,
+    })
   }
 
   makePersonaPostNotificationEnabled(payload: MakePersonaPostNotificationEnabledRequest) {
-    return this.request<MakePersonaPostNotificationEnabledResponse>('MakePersonaPostNotificationEnabled', payload)
+    return this.request<MakePersonaPostNotificationEnabledResponse>({
+      rpcName: 'MakePersonaPostNotificationEnabled',
+      inputMessageName: 'MakePersonaPostNotificationEnabledRequest',
+      outputMessageName: 'MakePersonaPostNotificationEnabledResponse',
+      payload,
+    })
   }
 
   makePersonaUnblock(payload: MakePersonaUnblockRequest) {
-    return this.request<MakePersonaUnblockResponse>('MakePersonaUnblock', payload)
+    return this.request<MakePersonaUnblockResponse>({
+      rpcName: 'MakePersonaUnblock',
+      inputMessageName: 'MakePersonaUnblockRequest',
+      outputMessageName: 'MakePersonaUnblockResponse',
+      payload,
+    })
   }
 
   makePersonaUnmute(payload: MakePersonaUnmuteRequest) {
-    return this.request<MakePersonaUnmuteResponse>('MakePersonaUnmute', payload)
+    return this.request<MakePersonaUnmuteResponse>({
+      rpcName: 'MakePersonaUnmute',
+      inputMessageName: 'MakePersonaUnmuteRequest',
+      outputMessageName: 'MakePersonaUnmuteResponse',
+      payload,
+    })
   }
 
   markAnnouncementAsRead(payload: MarkAnnouncementAsReadRequest) {
-    return this.request<MarkAnnouncementAsReadResponse>('MarkAnnouncementAsRead', payload)
+    return this.request<MarkAnnouncementAsReadResponse>({
+      rpcName: 'MarkAnnouncementAsRead',
+      inputMessageName: 'MarkAnnouncementAsReadRequest',
+      outputMessageName: 'MarkAnnouncementAsReadResponse',
+      payload,
+    })
   }
 
   markNotificationAsRead(payload: MarkNotificationAsReadRequest) {
-    return this.request<MarkNotificationAsReadResponse>('MarkNotificationAsRead', payload)
+    return this.request<MarkNotificationAsReadResponse>({
+      rpcName: 'MarkNotificationAsRead',
+      inputMessageName: 'MarkNotificationAsReadRequest',
+      outputMessageName: 'MarkNotificationAsReadResponse',
+      payload,
+    })
   }
 
   markNotificationsAsReadBeforeTime(payload: MarkNotificationsAsReadBeforeTimeRequest) {
-    return this.request<MarkNotificationsAsReadResponse>('MarkNotificationsAsReadBeforeTime', payload)
+    return this.request<MarkNotificationsAsReadResponse>({
+      rpcName: 'MarkNotificationsAsReadBeforeTime',
+      inputMessageName: 'MarkNotificationsAsReadBeforeTimeRequest',
+      outputMessageName: 'MarkNotificationsAsReadResponse',
+      payload,
+    })
   }
 
   pinCommunityPost(payload: PinCommunityPostRequest) {
-    return this.request<PinCommunityPostResponse>('PinCommunityPost', payload)
+    return this.request<PinCommunityPostResponse>({
+      rpcName: 'PinCommunityPost',
+      inputMessageName: 'PinCommunityPostRequest',
+      outputMessageName: 'PinCommunityPostResponse',
+      payload,
+    })
   }
 
   pinProfilePost(payload: PinProfilePostRequest) {
-    return this.request<PinProfilePostResponse>('PinProfilePost', payload)
+    return this.request<PinProfilePostResponse>({
+      rpcName: 'PinProfilePost',
+      inputMessageName: 'PinProfilePostRequest',
+      outputMessageName: 'PinProfilePostResponse',
+      payload,
+    })
   }
 
   prepareMediaUploading(payload: PrepareMediaUploadingRequest) {
-    return this.request<PrepareMediaUploadingResponse>('PrepareMediaUploading', payload)
+    return this.request<PrepareMediaUploadingResponse>({
+      rpcName: 'PrepareMediaUploading',
+      inputMessageName: 'PrepareMediaUploadingRequest',
+      outputMessageName: 'PrepareMediaUploadingResponse',
+      payload,
+    })
   }
 
   readPersonaWarning(payload: ReadPersonaWarningRequest) {
-    return this.request<ReadPersonaWarningResponse>('ReadPersonaWarning', payload)
+    return this.request<ReadPersonaWarningResponse>({
+      rpcName: 'ReadPersonaWarning',
+      inputMessageName: 'ReadPersonaWarningRequest',
+      outputMessageName: 'ReadPersonaWarningResponse',
+      payload,
+    })
   }
 
   refreshToken(payload: RefreshTokenRequest) {
-    return this.request<NewTokenResponse>('RefreshToken', payload)
+    return this.request<NewTokenResponse>({
+      rpcName: 'RefreshToken',
+      inputMessageName: 'RefreshTokenRequest',
+      outputMessageName: 'NewTokenResponse',
+      payload,
+    })
   }
 
   registerFCMToken(payload: RegisterFCMTokenRequest) {
-    return this.request<RegisterFCMTokenResponse>('RegisterFCMToken', payload)
+    return this.request<RegisterFCMTokenResponse>({
+      rpcName: 'RegisterFCMToken',
+      inputMessageName: 'RegisterFCMTokenRequest',
+      outputMessageName: 'RegisterFCMTokenResponse',
+      payload,
+    })
   }
 
   rejectFollowingRequest(payload: RejectFollowingRequestRequest) {
-    return this.request<RejectFollowingRequestResponse>('RejectFollowingRequest', payload)
+    return this.request<RejectFollowingRequestResponse>({
+      rpcName: 'RejectFollowingRequest',
+      inputMessageName: 'RejectFollowingRequestRequest',
+      outputMessageName: 'RejectFollowingRequestResponse',
+      payload,
+    })
   }
 
   removeCommunityBookmark(payload: RemoveCommunityBookmarkRequest) {
-    return this.request<RemoveCommunityBookmarkResponse>('RemoveCommunityBookmark', payload)
+    return this.request<RemoveCommunityBookmarkResponse>({
+      rpcName: 'RemoveCommunityBookmark',
+      inputMessageName: 'RemoveCommunityBookmarkRequest',
+      outputMessageName: 'RemoveCommunityBookmarkResponse',
+      payload,
+    })
   }
 
   removeCommunityPostPin(payload: RemoveCommunityPostPinRequest) {
-    return this.request<RemoveCommunityPostPinResponse>('RemoveCommunityPostPin', payload)
+    return this.request<RemoveCommunityPostPinResponse>({
+      rpcName: 'RemoveCommunityPostPin',
+      inputMessageName: 'RemoveCommunityPostPinRequest',
+      outputMessageName: 'RemoveCommunityPostPinResponse',
+      payload,
+    })
   }
 
   removeProfilePostPin(payload: RemoveProfilePostPinRequest) {
-    return this.request<RemoveProfilePostPinResponse>('RemoveProfilePostPin', payload)
+    return this.request<RemoveProfilePostPinResponse>({
+      rpcName: 'RemoveProfilePostPin',
+      inputMessageName: 'RemoveProfilePostPinRequest',
+      outputMessageName: 'RemoveProfilePostPinResponse',
+      payload,
+    })
   }
 
   removeStampFromOwnPost(payload: RemoveStampFromOwnPostRequest) {
-    return this.request<RemoveStampFromOwnPostResponse>('RemoveStampFromOwnPost', payload)
+    return this.request<RemoveStampFromOwnPostResponse>({
+      rpcName: 'RemoveStampFromOwnPost',
+      inputMessageName: 'RemoveStampFromOwnPostRequest',
+      outputMessageName: 'RemoveStampFromOwnPostResponse',
+      payload,
+    })
   }
 
   removeStampFromPost(payload: RemoveStampFromPostRequest) {
-    return this.request<RemoveStampFromPostResponse>('RemoveStampFromPost', payload)
+    return this.request<RemoveStampFromPostResponse>({
+      rpcName: 'RemoveStampFromPost',
+      inputMessageName: 'RemoveStampFromPostRequest',
+      outputMessageName: 'RemoveStampFromPostResponse',
+      payload,
+    })
   }
 
   reportChatRoomMessage(payload: ReportChatRoomMessageRequest) {
-    return this.request<ReportChatRoomMessageResponse>('ReportChatRoomMessage', payload)
+    return this.request<ReportChatRoomMessageResponse>({
+      rpcName: 'ReportChatRoomMessage',
+      inputMessageName: 'ReportChatRoomMessageRequest',
+      outputMessageName: 'ReportChatRoomMessageResponse',
+      payload,
+    })
   }
 
   reportCommunity(payload: ReportCommunityRequest) {
-    return this.request<ReportCommunityResponse>('ReportCommunity', payload)
+    return this.request<ReportCommunityResponse>({
+      rpcName: 'ReportCommunity',
+      inputMessageName: 'ReportCommunityRequest',
+      outputMessageName: 'ReportCommunityResponse',
+      payload,
+    })
   }
 
   reportPersona(payload: ReportPersonaRequest) {
-    return this.request<ReportPersonaResponse>('ReportPersona', payload)
+    return this.request<ReportPersonaResponse>({
+      rpcName: 'ReportPersona',
+      inputMessageName: 'ReportPersonaRequest',
+      outputMessageName: 'ReportPersonaResponse',
+      payload,
+    })
   }
 
   reportPost(payload: ReportPostRequest) {
-    return this.request<ReportPostResponse>('ReportPost', payload)
+    return this.request<ReportPostResponse>({
+      rpcName: 'ReportPost',
+      inputMessageName: 'ReportPostRequest',
+      outputMessageName: 'ReportPostResponse',
+      payload,
+    })
   }
 
   requestJoinCommunity(payload: RequestJoinCommunityRequest) {
-    return this.request<RequestJoinCommunityResponse>('RequestJoinCommunity', payload)
+    return this.request<RequestJoinCommunityResponse>({
+      rpcName: 'RequestJoinCommunity',
+      inputMessageName: 'RequestJoinCommunityRequest',
+      outputMessageName: 'RequestJoinCommunityResponse',
+      payload,
+    })
   }
 
   resendEmailPassCode(payload: ResendEmailPassCodeRequest) {
-    return this.request<ResendEmailPassCodeResponse>('ResendEmailPassCode', payload)
+    return this.request<ResendEmailPassCodeResponse>({
+      rpcName: 'ResendEmailPassCode',
+      inputMessageName: 'ResendEmailPassCodeRequest',
+      outputMessageName: 'ResendEmailPassCodeResponse',
+      payload,
+    })
   }
 
   resendSMSPassCode(payload: ResendSMSPassCodeRequest) {
-    return this.request<ResendSMSPassCodeResponse>('ResendSMSPassCode', payload)
+    return this.request<ResendSMSPassCodeResponse>({
+      rpcName: 'ResendSMSPassCode',
+      inputMessageName: 'ResendSMSPassCodeRequest',
+      outputMessageName: 'ResendSMSPassCodeResponse',
+      payload,
+    })
   }
 
   restrictCommunityPost(payload: RestrictCommunityPostRequest) {
-    return this.request<RestrictCommunityPostResponse>('RestrictCommunityPost', payload)
+    return this.request<RestrictCommunityPostResponse>({
+      rpcName: 'RestrictCommunityPost',
+      inputMessageName: 'RestrictCommunityPostRequest',
+      outputMessageName: 'RestrictCommunityPostResponse',
+      payload,
+    })
   }
 
   search(payload: SearchRequest) {
-    return this.request<SearchResponse>('Search', payload)
+    return this.request<SearchResponse>({
+      rpcName: 'Search',
+      inputMessageName: 'SearchRequest',
+      outputMessageName: 'SearchResponse',
+      payload,
+    })
   }
 
   searchChatRooms(payload: SearchChatRoomsRequest) {
-    return this.request<SearchChatRoomsResponse>('SearchChatRooms', payload)
+    return this.request<SearchChatRoomsResponse>({
+      rpcName: 'SearchChatRooms',
+      inputMessageName: 'SearchChatRoomsRequest',
+      outputMessageName: 'SearchChatRoomsResponse',
+      payload,
+    })
   }
 
   searchTypeahead(payload: SearchTypeaheadRequest) {
-    return this.request<SearchTypeaheadResponse>('SearchTypeahead', payload)
+    return this.request<SearchTypeaheadResponse>({
+      rpcName: 'SearchTypeahead',
+      inputMessageName: 'SearchTypeaheadRequest',
+      outputMessageName: 'SearchTypeaheadResponse',
+      payload,
+    })
   }
 
   sendCommunityInvitation(payload: SendCommunityInvitationRequest) {
-    return this.request<SendCommunityInvitationResponse>('SendCommunityInvitation', payload)
+    return this.request<SendCommunityInvitationResponse>({
+      rpcName: 'SendCommunityInvitation',
+      inputMessageName: 'SendCommunityInvitationRequest',
+      outputMessageName: 'SendCommunityInvitationResponse',
+      payload,
+    })
   }
 
   sendDirectMessage(payload: SendDirectMessageRequest) {
-    return this.request<SendDirectMessageResponse>('SendDirectMessage', payload)
+    return this.request<SendDirectMessageResponse>({
+      rpcName: 'SendDirectMessage',
+      inputMessageName: 'SendDirectMessageRequest',
+      outputMessageName: 'SendDirectMessageResponse',
+      payload,
+    })
   }
 
   sendFollowingRequest(payload: SendFollowingRequestRequest) {
-    return this.request<SendFollowingRequestResponse>('SendFollowingRequest', payload)
+    return this.request<SendFollowingRequestResponse>({
+      rpcName: 'SendFollowingRequest',
+      inputMessageName: 'SendFollowingRequestRequest',
+      outputMessageName: 'SendFollowingRequestResponse',
+      payload,
+    })
   }
 
   sendGroupMessage(payload: SendGroupMessageRequest) {
-    return this.request<SendGroupMessageResponse>('SendGroupMessage', payload)
+    return this.request<SendGroupMessageResponse>({
+      rpcName: 'SendGroupMessage',
+      inputMessageName: 'SendGroupMessageRequest',
+      outputMessageName: 'SendGroupMessageResponse',
+      payload,
+    })
   }
 
   sendMessageToRoom(payload: SendMessageToRoomRequest) {
-    return this.request<SendMessageToRoomResponse>('SendMessageToRoom', payload)
+    return this.request<SendMessageToRoomResponse>({
+      rpcName: 'SendMessageToRoom',
+      inputMessageName: 'SendMessageToRoomRequest',
+      outputMessageName: 'SendMessageToRoomResponse',
+      payload,
+    })
   }
 
   setCommunityTags(payload: SetCommunityTagsRequest) {
-    return this.request<SetCommunityTagsResponse>('SetCommunityTags', payload)
+    return this.request<SetCommunityTagsResponse>({
+      rpcName: 'SetCommunityTags',
+      inputMessageName: 'SetCommunityTagsRequest',
+      outputMessageName: 'SetCommunityTagsResponse',
+      payload,
+    })
   }
 
   signin(payload: SigninRequest) {
-    return this.request<NewTokenResponse>('Signin', payload)
+    return this.request<NewTokenResponse>({
+      rpcName: 'Signin',
+      inputMessageName: 'SigninRequest',
+      outputMessageName: 'NewTokenResponse',
+      payload,
+    })
   }
 
   signOut(payload: SignOutRequest) {
-    return this.request<SignOutResponse>('SignOut', payload)
+    return this.request<SignOutResponse>({
+      rpcName: 'SignOut',
+      inputMessageName: 'SignOutRequest',
+      outputMessageName: 'SignOutResponse',
+      payload,
+    })
   }
 
   signup(payload: SignupRequest) {
-    return this.request<NewTokenResponse>('Signup', payload)
+    return this.request<NewTokenResponse>({
+      rpcName: 'Signup',
+      inputMessageName: 'SignupRequest',
+      outputMessageName: 'NewTokenResponse',
+      payload,
+    })
   }
 
   startEmailAuthentication(payload: StartEmailAuthenticationRequest) {
-    return this.request<StartEmailAuthenticationResponse>('StartEmailAuthentication', payload)
+    return this.request<StartEmailAuthenticationResponse>({
+      rpcName: 'StartEmailAuthentication',
+      inputMessageName: 'StartEmailAuthenticationRequest',
+      outputMessageName: 'StartEmailAuthenticationResponse',
+      payload,
+    })
   }
 
   startSMSAuthentication(payload: StartSMSAuthenticationRequest) {
-    return this.request<StartSMSAuthenticationResponse>('StartSMSAuthentication', payload)
+    return this.request<StartSMSAuthenticationResponse>({
+      rpcName: 'StartSMSAuthentication',
+      inputMessageName: 'StartSMSAuthenticationRequest',
+      outputMessageName: 'StartSMSAuthenticationResponse',
+      payload,
+    })
   }
 
   switchPersona(payload: SwitchPersonaRequest) {
-    return this.request<SwitchPersonaResponse>('SwitchPersona', payload)
+    return this.request<SwitchPersonaResponse>({
+      rpcName: 'SwitchPersona',
+      inputMessageName: 'SwitchPersonaRequest',
+      outputMessageName: 'SwitchPersonaResponse',
+      payload,
+    })
   }
 
   updateChatRoomTitle(payload: UpdateChatRoomTitleRequest) {
-    return this.request<UpdateChatRoomTitleResponse>('UpdateChatRoomTitle', payload)
+    return this.request<UpdateChatRoomTitleResponse>({
+      rpcName: 'UpdateChatRoomTitle',
+      inputMessageName: 'UpdateChatRoomTitleRequest',
+      outputMessageName: 'UpdateChatRoomTitleResponse',
+      payload,
+    })
   }
 
   updateCommunity(payload: UpdateCommunityRequest) {
-    return this.request<UpdateCommunityResponse>('UpdateCommunity', payload)
+    return this.request<UpdateCommunityResponse>({
+      rpcName: 'UpdateCommunity',
+      inputMessageName: 'UpdateCommunityRequest',
+      outputMessageName: 'UpdateCommunityResponse',
+      payload,
+    })
   }
 
   updateCommunityLastAccessTime(payload: UpdateCommunityLastAccessTimeRequest) {
-    return this.request<UpdateCommunityLastAccessTimeResponse>('UpdateCommunityLastAccessTime', payload)
+    return this.request<UpdateCommunityLastAccessTimeResponse>({
+      rpcName: 'UpdateCommunityLastAccessTime',
+      inputMessageName: 'UpdateCommunityLastAccessTimeRequest',
+      outputMessageName: 'UpdateCommunityLastAccessTimeResponse',
+      payload,
+    })
   }
 
   updateDisplayName(payload: UpdateDisplayNameRequest) {
-    return this.request<UpdateDisplayNameResponse>('UpdateDisplayName', payload)
+    return this.request<UpdateDisplayNameResponse>({
+      rpcName: 'UpdateDisplayName',
+      inputMessageName: 'UpdateDisplayNameRequest',
+      outputMessageName: 'UpdateDisplayNameResponse',
+      payload,
+    })
   }
 
   updateEventCommunity(payload: UpdateEventCommunityRequest) {
-    return this.request<UpdateEventCommunityResponse>('UpdateEventCommunity', payload)
+    return this.request<UpdateEventCommunityResponse>({
+      rpcName: 'UpdateEventCommunity',
+      inputMessageName: 'UpdateEventCommunityRequest',
+      outputMessageName: 'UpdateEventCommunityResponse',
+      payload,
+    })
   }
 
   updateInAppEventDone(payload: UpdateInAppEventDoneRequest) {
-    return this.request<UpdateInAppEventDoneResponse>('UpdateInAppEventDone', payload)
+    return this.request<UpdateInAppEventDoneResponse>({
+      rpcName: 'UpdateInAppEventDone',
+      inputMessageName: 'UpdateInAppEventDoneRequest',
+      outputMessageName: 'UpdateInAppEventDoneResponse',
+      payload,
+    })
   }
 
   updateName(payload: UpdateNameRequest) {
-    return this.request<UpdateNameResponse>('UpdateName', payload)
+    return this.request<UpdateNameResponse>({
+      rpcName: 'UpdateName',
+      inputMessageName: 'UpdateNameRequest',
+      outputMessageName: 'UpdateNameResponse',
+      payload,
+    })
   }
 
   updateProfile(payload: UpdateProfileRequest) {
-    return this.request<UpdateProfileResponse>('UpdateProfile', payload)
+    return this.request<UpdateProfileResponse>({
+      rpcName: 'UpdateProfile',
+      inputMessageName: 'UpdateProfileRequest',
+      outputMessageName: 'UpdateProfileResponse',
+      payload,
+    })
   }
 
   updateProfileSocialMedia(payload: UpdateProfileSocialMediaRequest) {
-    return this.request<UpdateProfileSocialMediaResponse>('UpdateProfileSocialMedia', payload)
+    return this.request<UpdateProfileSocialMediaResponse>({
+      rpcName: 'UpdateProfileSocialMedia',
+      inputMessageName: 'UpdateProfileSocialMediaRequest',
+      outputMessageName: 'UpdateProfileSocialMediaResponse',
+      payload,
+    })
   }
 
   updateRemotePushSettings(payload: UpdateRemotePushSettingsRequest) {
-    return this.request<UpdateRemotePushSettingsResponse>('UpdateRemotePushSettings', payload)
+    return this.request<UpdateRemotePushSettingsResponse>({
+      rpcName: 'UpdateRemotePushSettings',
+      inputMessageName: 'UpdateRemotePushSettingsRequest',
+      outputMessageName: 'UpdateRemotePushSettingsResponse',
+      payload,
+    })
   }
 
   updateTimelineSetting(payload: UpdateTimelineSettingRequest) {
-    return this.request<UpdateTimelineSettingResponse>('UpdateTimelineSetting', payload)
+    return this.request<UpdateTimelineSettingResponse>({
+      rpcName: 'UpdateTimelineSetting',
+      inputMessageName: 'UpdateTimelineSettingRequest',
+      outputMessageName: 'UpdateTimelineSettingResponse',
+      payload,
+    })
   }
 
   updateTopicCommunity(payload: UpdateTopicCommunityRequest) {
-    return this.request<UpdateTopicCommunityResponse>('UpdateTopicCommunity', payload)
+    return this.request<UpdateTopicCommunityResponse>({
+      rpcName: 'UpdateTopicCommunity',
+      inputMessageName: 'UpdateTopicCommunityRequest',
+      outputMessageName: 'UpdateTopicCommunityResponse',
+      payload,
+    })
   }
 
   verifyEmailAuthentication(payload: VerifyEmailAuthenticationRequest) {
-    return this.request<NewTokenResponse>('VerifyEmailAuthentication', payload)
+    return this.request<NewTokenResponse>({
+      rpcName: 'VerifyEmailAuthentication',
+      inputMessageName: 'VerifyEmailAuthenticationRequest',
+      outputMessageName: 'NewTokenResponse',
+      payload,
+    })
   }
 
   verifyEmailSessionAuthentication(payload: VerifyEmailSessionAuthenticationRequest) {
-    return this.request<VerifyEmailSessionAuthenticationResponse>('VerifyEmailSessionAuthentication', payload)
+    return this.request<VerifyEmailSessionAuthenticationResponse>({
+      rpcName: 'VerifyEmailSessionAuthentication',
+      inputMessageName: 'VerifyEmailSessionAuthenticationRequest',
+      outputMessageName: 'VerifyEmailSessionAuthenticationResponse',
+      payload,
+    })
   }
 
   verifySMSAuthentication(payload: VerifySMSAuthenticationRequest) {
-    return this.request<NewTokenResponse>('VerifySMSAuthentication', payload)
+    return this.request<NewTokenResponse>({
+      rpcName: 'VerifySMSAuthentication',
+      inputMessageName: 'VerifySMSAuthenticationRequest',
+      outputMessageName: 'NewTokenResponse',
+      payload,
+    })
   }
 }
