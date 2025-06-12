@@ -2059,36 +2059,36 @@ export interface Post {
   timeSeriesId: string
   createdAt: Timestamp
   personaId: string
-  visibility: PostVisibility
-  isDeleted: boolean
-  medias: Media[]
-  repostCount: number
-  likesCount: number
-  repliesCount: number
-  quotedCount: number
+  visibility?: PostVisibility
+  isDeleted?: boolean
+  medias?: Media[]
+  repostCount?: number
+  likesCount?: number
+  repliesCount?: number
+  quotedCount?: number
   text?: string
   inReplyToPostId?: string
   repostId?: string
   quotePostId?: string
-  liked: boolean
-  reposted: boolean
-  bookmarked: boolean
+  liked?: boolean
+  reposted?: boolean
+  bookmarked?: boolean
   referencePost?: Post
-  quoted: boolean
-  replied: boolean
-  linkCards: LinkCard[]
-  isMuted: boolean
-  isSensitive: boolean
+  quoted?: boolean
+  replied?: boolean
+  linkCards?: LinkCard[]
+  isMuted?: boolean
+  isSensitive?: boolean
   community?: CommunitySummary
   attachedCommunity?: Community
-  mentions: PersonaName[]
-  decorations: number[]
-  stamps: PostStamp[]
+  mentions?: PersonaName[]
+  decorations?: number[]
+  stamps?: PostStamp[]
   readerStampId?: string
-  isRestricted: boolean
-  maskType: PostMaskType
+  isRestricted?: boolean
+  maskType?: PostMaskType
   maskCaption?: string
-  publishingType: PostPublishingType
+  publishingType?: PostPublishingType
 }
 
 export interface PostImage {
